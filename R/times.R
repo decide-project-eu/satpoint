@@ -60,7 +60,7 @@ filter_dates <- function(all_nc_data, dates_to_extract) {
     dplyr::select(-date)
 
   if (nrow(filter_nc_data) == 0) {
-    warning("There requested date(s) are not present in the nc file.
+    warning("The requested date(s) are not present in the nc file.
             All dates have been returned.")
     filter_nc_data <- all_nc_data
   }
