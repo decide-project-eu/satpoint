@@ -1,0 +1,22 @@
+Package: satpoint
+Type: Package
+Title: Automates Extraction Of Information From NETCDF Files
+Version: 0.1.0
+Authors@R: person("Andrew", "Duncan", email = "Andrew.Duncan@sruc.ac.uk",
+  role = c("aut", "cre"))
+Maintainer: Andrew Duncan <Andrew.Duncan@sruc.ac.uk>
+Description: The satpoint package is designed to make extracting information
+    from NetCDF files at specific geographic locations as easy as possible. 
+    You provide some geographic data and an NetCDF file, satpoint will extract
+    the variable data automatically.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    lubridate,
+    ncdf4,
+    rlang,
+    sf,
+    tibble,
+    tidyr
