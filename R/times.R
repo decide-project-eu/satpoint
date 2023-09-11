@@ -47,3 +47,22 @@ extract_times <- function(nc_obj, time_var_name = "time") {
 
   return(all_times)
 }
+
+filter_dates <- function(all_nc_data, dates_to_extract) {
+
+  dates_for_join <- tibble::tibble(
+    date = lubridate::as_date(dates_to_extract)
+  )
+
+  filter_nc_data <- all_nc_data |>
+    dplyr::mutate(date = lubridate::as_date(time)) |>
+    dplyr::inner_join(dates_for_join) |>
+    dplyr::select(-date)
+
+  return(filter_nc_data)
+
+}
+
+
+
+

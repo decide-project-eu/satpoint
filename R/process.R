@@ -17,12 +17,13 @@
 extract_site_grids_nc <- function(nc_file, site_locations,
                                   nc_crs, sites_crs,
                                   depth_var = "depth", split_column = "site",
-                                  nc_var_name = NULL,
+                                  nc_var_name = NULL, dates_to_extract = NULL,
+                                  time_var_name = "time",
                                   grid_name_x = "", grid_name_y = "") {
 
   nc_obj <- ncdf4::nc_open(nc_file)
 
-  all_times <- extract_times(nc_obj)
+  all_times <- extract_times(nc_obj, time_var_name)
 
   nc_grid <- extract_geos(nc_obj, orig_crs = nc_crs, crs = sites_crs,
                           name_x = grid_name_x, name_y = grid_name_y)
@@ -54,7 +55,7 @@ extract_site_grids_nc <- function(nc_file, site_locations,
 
   # check dimensions to ensure that the order of indices is correct
   nc_dims <- nc_obj$var[[var_name]][["size"]]
-  # the first two parts should be the x, y dimensions but someimes these are
+  # the first two parts should be the x, y dimensions but sometimes these are
   # swapped
   max_x_index <- max(nc_grid$ind.x)
   max_y_index <- max(nc_grid$ind.y)
@@ -84,11 +85,16 @@ extract_site_grids_nc <- function(nc_file, site_locations,
       return(do.call("rbind", results))
     })
 
-
   all_nc_sites <- do.call("rbind", all_nc_sites) |>
     tibble::as_tibble(.name_repair = "minimal") |>
     dplyr::relocate(dplyr::all_of(split_column), .before = 1) |>
     dplyr::rename("{split_column}" := site)
+
+  # deal with times that need to be extracted, if required
+  if (!is.null(dates_to_extract)) {
+    all_nc_sites <- filter_dates(all_nc_sites, dates_to_extract)
+  }
+
 
   ncdf4::nc_close(nc_obj)
 
