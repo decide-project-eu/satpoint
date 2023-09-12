@@ -1,17 +1,26 @@
-#' Title
+#' Creates circular buffers around site locations to allow for different
+#' spatial averaging to occur when the values are extracted from an nc file.
 #'
-#' @param site_df
-#' @param x_coord
-#' @param y_coord
-#' @param crs
-#' @param buffers
-#' @param unite
-#' @param id
+#' @param site_df Data frame of locations to create buffers from. There is a
+#'   presumption that each location has a (x, y) coordinates in separate columns
+#'   and an identifier.
+#' @param x_coord The name of the data frame column that details the x
+#'   coordinate of the geographical location.
+#' @param y_coord The name of the data frame column that details the y
+#'   coordinate of the geographical location.
+#' @param crs The numerical value of the to be used in the creation of the
+#'   geographical buffer zones. This should match the form of the coordinates
+#'   provided in the data frame.
+#' @param buffers The radius of the buffers to be created in km.
+#' @param unite Whether to unit the identifier of the location and the buffer.
+#' @param id The column name that details the location identifier.
+#'   Defaults to "site".
 #'
-#' @return
+#' @return Special features data frame with the original data frame's column,
+#'   plus a geometry column identifying the circular buffers around the
+#'   individual locations.
 #' @export
 #'
-#' @examples
 site_buffers <- function(site_df, x_coord, y_coord, crs, buffers, unite = FALSE,
                          id = "site") {
 
@@ -40,3 +49,5 @@ site_buffers <- function(site_df, x_coord, y_coord, crs, buffers, unite = FALSE,
   return(all_buffers)
 
 }
+
+buffer <- NULL

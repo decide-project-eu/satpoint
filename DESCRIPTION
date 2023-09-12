@@ -9,7 +9,7 @@ Description: The satpoint package is designed to make extracting information
     from NetCDF files at specific geographic locations as easy as possible. 
     You provide some geographic data and an NetCDF file, satpoint will extract
     the variable data automatically.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -18,5 +18,5 @@ Imports:
     ncdf4,
     rlang,
     sf,
-    tibble,
-    tidyr
+    tibble
+RoxygenNote: 7.2.3

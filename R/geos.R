@@ -1,16 +1,22 @@
-#' Title
+#' Extract all geographical coordinates from an nc file and convert to simple
+#'   features object.
 #'
-#' @param nc_obj
-#' @param orig_crs
-#' @param crs
-#' @param name_x
-#' @param name_y
+#' @param nc_obj Open nc file to retrieve time data from.
+#' @param orig_crs Numerical value of the crs used in the nc file.
+#' @param crs Numerical value of the crs to change results into, if different
+#'   from the original crs.
+#' @param name_x Name of the geographical x coordinate to be extracted.
+#'   If not specified, an attempt will be made to establish this from the nc
+#'   file itself.
+#' @param name_y Name of the geographical y coordinate to be extracted.
+#'   If not specified, an attempt will be made to establish this from the nc
+#'   file itself.
 #'
-#' @return
+#' @return Special features data frame containing the geographic coordinates of
+#'   the provided nc file.
 #' @export
 #'
-#' @examples
-extract_geos <- function(nc_obj, orig_crs, crs, name_x = "", name_y = "") {
+extract_geos <- function(nc_obj, orig_crs, crs = NULL, name_x = "", name_y = "") {
 
   if (name_x == ""|| name_y == "") {
     message("Extracting the coordinate names directly from the file")
@@ -32,9 +38,11 @@ extract_geos <- function(nc_obj, orig_crs, crs, name_x = "", name_y = "") {
     sf::st_as_sf(coords = c("x", "y"),
                  crs = orig_crs)
 
-  if(orig_crs != crs) {
+  if(!is.null(crs) && orig_crs != crs) {
     nc_geos <- sf::st_transform(nc_geos, crs = crs)
   }
 
   return(nc_geos)
 }
+
+Var1 <- Var2 <- NULL

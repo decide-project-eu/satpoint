@@ -1,29 +1,43 @@
-#' Title
+#' Extract all variable values from nc file for all provided geographical locations.
 #'
-#' @param nc_file
-#' @param site_locations
-#' @param nc_crs
-#' @param sites_crs
-#' @param depth_var
-#' @param split_column
-#' @param nc_var_name
-#' @param grid_name_x
-#' @param grid_name_y
+#' @param nc_file File to extract the data from.
+#' @param site_locations Simple features (or spatial data frame) of geographical
+#'   areas to extract the variable values for.
+#' @param nc_crs The numerical value for the crs of the nc file.
+#' @param sites_crs The numerical value for the crs of the sites, if different
+#'   from the crs of the nc file.
+#' @param depth_var The name of the depth variable, if necessary, used in the
+#'   nc file. Defaults to "depth".
+#' @param id The name of the identier provided in the sites_location special
+#'   features data frame.
+#' @param nc_var_name The name of the variable in the nc file that is the focus
+#'   of the extraction. If not specified, an attempt will be made to establish
+#'   this from the nc file itself.
+#' @param dates_to_extract Vector of dates to extract the variable for. If not
+#'   provided, all available values will be returned.
+#' @param time_var_name Name of time/date variable to extract from the nc file.
+#'   Defaults to "time" as that is by far the most common variable name used.
+#' @param grid_name_x Name of the geographical x coordinate to be extracted.
+#'   If not specified, an attempt will be made to establish this from the nc
+#'   file itself.
+#' @param grid_name_y Name of the geographical y coordinate to be extracted.
+#'   If not specified, an attempt will be made to establish this from the nc
+#'   file itself.
 #'
-#' @return
+#' @return A tibble of each location id, with the corresponding variable values
+#'   depths and dates available.
 #' @export
 #'
-#' @examples
 extract_site_grids_nc <- function(nc_file, site_locations,
-                                  nc_crs, sites_crs,
-                                  depth_var = "depth", split_column = "site",
+                                  nc_crs, sites_crs = NULL,
+                                  depth_var = "depth", id = "site",
                                   nc_var_name = NULL, dates_to_extract = NULL,
                                   time_var_name = "time",
                                   grid_name_x = "", grid_name_y = "") {
 
   nc_obj <- ncdf4::nc_open(nc_file)
 
-  all_times <- extract_times(nc_obj, time_var_name)
+  all_times <- extract_dates(nc_obj, time_var_name)
 
   nc_grid <- extract_geos(nc_obj, orig_crs = nc_crs, crs = sites_crs,
                           name_x = grid_name_x, name_y = grid_name_y)
@@ -69,9 +83,9 @@ extract_site_grids_nc <- function(nc_file, site_locations,
 
 
   all_nc_sites <- sites_df |>
-    split(sites_df[[split_column]]) |>
+    split(sites_df[[id]]) |>
     lapply(function(df) {
-      message(paste("Processing", split_column, unique(df[[split_column]])))
+      message(paste("Processing", id, unique(df[[id]])))
       results <- mapply(get_nc_data,
                         df$ind.x, df$ind.y,
                         MoreArgs = list(
@@ -79,7 +93,7 @@ extract_site_grids_nc <- function(nc_file, site_locations,
                           depth_vals = depth_values,
                           nc_var = var_name,
                           nc_times = all_times,
-                          site = unique(df[[split_column]]),
+                          site = unique(df[[id]]),
                           swap_ind = swap_flag),
                         SIMPLIFY = FALSE)
       return(do.call("rbind", results))
@@ -87,8 +101,7 @@ extract_site_grids_nc <- function(nc_file, site_locations,
 
   all_nc_sites <- do.call("rbind", all_nc_sites) |>
     tibble::as_tibble(.name_repair = "minimal") |>
-    dplyr::relocate(dplyr::all_of(split_column), .before = 1) |>
-    dplyr::rename("{split_column}" := site)
+    dplyr::relocate(dplyr::all_of(id), .before = 1)
 
   # deal with times that need to be extracted, if required
   if (!is.null(dates_to_extract)) {
