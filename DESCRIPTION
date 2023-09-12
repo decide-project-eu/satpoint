@@ -20,3 +20,4 @@ Imports:
     sf,
     tibble
 RoxygenNote: 7.2.3
+URL: https://decide-project-eu.github.io/satpoint/
