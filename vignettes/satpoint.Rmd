@@ -20,7 +20,7 @@ library(satpoint)
 
 ## netCDF files to process
 
-If you are unsure how we can obtain netCDF files please see `vignette("Download-netcdf")`. We will use the files downloaded there for this example.
+If you are unsure how we can obtain netCDF files please see `vignette("download-netcdf", package = "satpoint")`. We will use the files downloaded there for this example.
 
 
 ```r
