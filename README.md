@@ -35,16 +35,22 @@ extract data for a geographic area - which they will then average
 across.
 
 For a full worked example of processing one or more netCDF files, please
-see the [Processing netCDF files
-article](https://decide-project-eu.github.io/satpoint/docs/articles/Processing-netcdf-files.html)
-for a fully worked example.
+see the `vignette("satpoint", package = "satpoint")` for a fully worked
+example.
 
 ## Collecting netCDF files for analysis
 
 At present the package does not contain any functions that will
 download/collect netCDF files from any of the common data repositories.
 However, to assist users who are new to using `R` to work with this type
-of data we have put together an
-[article](https://decide-project-eu.github.io/satpoint/articles/download-netcdf.html)
-from the [NASA EARTHDATA](https://urs.earthdata.nasa.gov/) data
-repository.
+of data we have put together the
+`vignette("download-netcdf", package = "satpoint")` to demonstrate how
+to download files from the [NASA
+EARTHDATA](https://urs.earthdata.nasa.gov/) data repository.
+
+## Final Words
+
+This is a brand new package and is very much still in development. If
+you have any problems, or would like to see any additional
+functionality, please post an issue via
+[github](https://github.com/decide-project-eu/satpoint/issues).
