@@ -21,6 +21,13 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Downloading-Files-from-Earth-Data.html">Downloading Files from Earth Data</a>
+    <a class="dropdown-item" href="../articles/Processing-netcdf-files.html">Processing netCDF files</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -49,35 +56,35 @@
           
           <code><a href="extract_dates.html">extract_dates()</a></code> 
         </dt>
-        <dd>Extract all date or datetimes from an nc file.</dd>
+        <dd>Extract all date or datetimes from an open netCDF file.</dd>
       </dl><dl><dt>
           
           <code><a href="extract_geos.html">extract_geos()</a></code> 
         </dt>
-        <dd>Extract all geographical coordinates from an nc file and convert to simple
+        <dd>Extract all geographical coordinates from a netCDF file and convert to simple
   features object.</dd>
       </dl><dl><dt>
           
           <code><a href="extract_site_grids_nc.html">extract_site_grids_nc()</a></code> 
         </dt>
-        <dd>Extract all variable values from nc file for all provided geographical locations.</dd>
+        <dd>Extract all variable values from netCDF file for all provided geographical locations.</dd>
       </dl><dl><dt>
           
           <code><a href="filter_dates.html">filter_dates()</a></code> 
         </dt>
         <dd>Internal function to assist the user in extracting only particular dates
-from the results of an nc file.</dd>
+from the results of a netCDF file.</dd>
       </dl><dl><dt>
           
           <code><a href="get_nc_data.html">get_nc_data()</a></code> 
         </dt>
-        <dd>Internal function to extract the variable values from an open nc file.</dd>
+        <dd>Internal function to extract the variable values from an open netCDF file.</dd>
       </dl><dl><dt>
           
           <code><a href="site_buffers.html">site_buffers()</a></code> 
         </dt>
         <dd>Creates circular buffers around site locations to allow for different
-spatial averaging to occur when the values are extracted from an nc file.</dd>
+spatial averaging to occur when the values are extracted from a netCDF file.</dd>
       </dl></div>
   </main></div>
 
