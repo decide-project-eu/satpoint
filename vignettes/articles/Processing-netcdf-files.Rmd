@@ -58,7 +58,7 @@ sites
 
 which we can plot just for reference purposes.
 
-![plot of chunk site_map](images/site_map-1.png)
+![plot of chunk site_map](../images/site_map-1.png)
 
 ### Creating Buffer Zones
 
@@ -92,7 +92,7 @@ buffers
 
 As above, we can plot these buffers to demonstrate what has been created.
 
-![plot of chunk buffer_map](images/buffer_map-1.png)
+![plot of chunk buffer_map](../images/buffer_map-1.png)
 
 **Note:** If you are creating your own buffer zones, which do not have to be circular, the expectation is that the `buffers` data frame will have a unique row per buffer and these should be have a unique identifier. In our case it is the *site* column.
 
@@ -185,7 +185,7 @@ ggplot(sum_precip, aes(x = datetime, y = precipitationCal)) +
   facet_wrap(vars(site), ncol = 2)
 ```
 
-![plot of chunk final_plot](images/final_plot-1.png)
+![plot of chunk final_plot](../images/final_plot-1.png)
 
 
 ## Additional Options
