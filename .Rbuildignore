@@ -6,6 +6,6 @@
 ^pkgdown$
 ^README\.Rmd$
 ^\.github$
-^vignettes/articles$
 ^vignettes/pre-compile.R
-^vignettes/images$
+^vignettes/.netrc$
+^vignettes/.urs_cookies$

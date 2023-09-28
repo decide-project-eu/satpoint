@@ -45,6 +45,6 @@ At present the package does not contain any functions that will
 download/collect netCDF files from any of the common data repositories.
 However, to assist users who are new to using `R` to work with this type
 of data we have put together an
-[article](https://decide-project-eu.github.io/satpoint/docs/articles/Downloading-Files-from-Earth-Data.html)
+[article](https://decide-project-eu.github.io/satpoint/articles/download-netcdf.html)
 from the [NASA EARTHDATA](https://urs.earthdata.nasa.gov/) data
 repository.
