@@ -1,9 +1,9 @@
 ---
 title: "Processing netCDF files"
 resource_files:
-  - images/buffer_map-1.png
-  - images/final_plot-1.png
-  - images/site_map-1.png
+  - ../images/buffer_map-1.png
+  - ../images/final_plot-1.png
+  - ../images/site_map-1.png
 ---
 
 
