@@ -3,13 +3,13 @@
 \name{filter_dates}
 \alias{filter_dates}
 \title{Internal function to assist the user in extracting only particular dates
-from the results of an nc file.}
+from the results of a netCDF file.}
 \usage{
 filter_dates(all_nc_data, dates_to_extract)
 }
 \arguments{
-\item{all_nc_data}{Data frame containing all the results extracted from an
-nc file.}
+\item{all_nc_data}{Data frame containing all the results extracted from a
+netCDF file.}
 
 \item{dates_to_extract}{Vector of dates to be extracted.}
 }
@@ -18,5 +18,5 @@ Data frame containing the results filtered by date.
 }
 \description{
 Internal function to assist the user in extracting only particular dates
-from the results of an nc file.
+from the results of a netCDF file.
 }

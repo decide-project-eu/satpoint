@@ -2,32 +2,44 @@
 % Please edit documentation in R/geos.R
 \name{extract_geos}
 \alias{extract_geos}
-\title{Extract all geographical coordinates from an nc file and convert to simple
+\title{Extract all geographical coordinates from a netCDF file and convert to simple
   features object.}
 \usage{
 extract_geos(nc_obj, orig_crs, crs = NULL, name_x = "", name_y = "")
 }
 \arguments{
-\item{nc_obj}{Open nc file to retrieve time data from.}
+\item{nc_obj}{Open netCDF file to retrieve time data from.}
 
-\item{orig_crs}{Numerical value of the crs used in the nc file.}
+\item{orig_crs}{Numerical value of the crs used in the netCDF file.}
 
 \item{crs}{Numerical value of the crs to change results into, if different
 from the original crs.}
 
 \item{name_x}{Name of the geographical x coordinate to be extracted.
-If not specified, an attempt will be made to establish this from the nc
+If not specified, an attempt will be made to establish this from the netCDF
 file itself.}
 
 \item{name_y}{Name of the geographical y coordinate to be extracted.
-If not specified, an attempt will be made to establish this from the nc
+If not specified, an attempt will be made to establish this from the netCDF
 file itself.}
 }
 \value{
 Special features data frame containing the geographic coordinates of
-  the provided nc file.
+  the provided netCDF file.
 }
 \description{
-Extract all geographical coordinates from an nc file and convert to simple
+Extract all geographical coordinates from a netCDF file and convert to simple
   features object.
+}
+\examples{
+\dontrun{
+ # open the netCDF file
+ the_nc_obj <- ncdf4::nc_open("path/to/netCDF/file.nc")
+
+ # extract all spatial points from the netCDF file
+ extract_geos(the_nc_obj, crs = 4326)
+
+ # if the names of the spatial coordindates aren't picked up automatically
+ extract_geos(the_nc_obj, crs = 4326, name_x = "x", name_y = "y")
+}
 }

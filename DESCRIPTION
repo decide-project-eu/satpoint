@@ -19,5 +19,6 @@ Imports:
     rlang,
     sf,
     tibble
+Config/Needs/website: tidyverse, rmarkdown
 RoxygenNote: 7.2.3
 URL: https://decide-project-eu.github.io/satpoint/

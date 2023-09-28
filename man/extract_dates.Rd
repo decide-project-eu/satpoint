@@ -2,19 +2,31 @@
 % Please edit documentation in R/times.R
 \name{extract_dates}
 \alias{extract_dates}
-\title{Extract all date or datetimes from an nc file.}
+\title{Extract all date or datetimes from an open netCDF file.}
 \usage{
 extract_dates(nc_obj, time_var_name = "time")
 }
 \arguments{
-\item{nc_obj}{Open nc file to retrieve time data from}
+\item{nc_obj}{Open netCDF file to retrieve time data from}
 
-\item{time_var_name}{Name of time/date variable to extract from the nc file.
+\item{time_var_name}{Name of time/date variable to extract from the netCDF file.
 Defaults to "time" as that is by far the most common variable name used.}
 }
 \value{
-Vector of date or datetimes extracted from the nc file.
+Vector of date or datetimes extracted from the netCDF file.
 }
 \description{
-Extract all date or datetimes from an nc file.
+Extract all date or datetimes from an open netCDF file.
+}
+\examples{
+\dontrun{
+ # open the netCDF file
+ the_nc_obj <- ncdf4::nc_open("path/to/netCDF/file.nc")
+
+ # extract all datetimes from the file
+ extract_dates(the_nc_obj)
+
+ # or if the date/time variable has a different name
+ extract_dates(the_nc_obj, "datetime")
+}
 }

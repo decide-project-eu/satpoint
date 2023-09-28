@@ -6,3 +6,6 @@
 ^pkgdown$
 ^README\.Rmd$
 ^\.github$
+^vignettes/articles$
+^vignettes/pre-compile.R
+^vignettes/images$

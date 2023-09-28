@@ -1,5 +1,5 @@
 #' Creates circular buffers around site locations to allow for different
-#' spatial averaging to occur when the values are extracted from an nc file.
+#' spatial averaging to occur when the values are extracted from a netCDF file.
 #'
 #' @param site_df Data frame of locations to create buffers from. There is a
 #'   presumption that each location has a (x, y) coordinates in separate columns
@@ -13,6 +13,8 @@
 #'   provided in the data frame.
 #' @param buffers The radius of the buffers to be created in km.
 #' @param unite Whether to unit the identifier of the location and the buffer.
+#'   Defaults to TRUE as this creates a unique location/buffer per row when
+#'   used in extract_site_grids_nc.
 #' @param id The column name that details the location identifier.
 #'   Defaults to "site".
 #'
@@ -21,8 +23,20 @@
 #'   individual locations.
 #' @export
 #'
-site_buffers <- function(site_df, x_coord, y_coord, crs, buffers, unite = FALSE,
-                         id = "site") {
+#' @examples
+#' # create data frame of sites
+#' sites <- tibble::tibble(
+#'   site = LETTERS[1:4],
+#'   longitude = c(-5.837704, -6.592514, -7.885055, -3.421410),
+#'   latitude = c(57.607846, 57.291280, 56.900022, 58.187849)
+#' )
+#'
+#' # create 10km, 15km and 20km buffers around the sites
+#' site_buffers(sites, x_coord = "longitude", y_coord = "latitude",
+#'              crs = 4326, buffers = c(10, 15, 20))
+#'
+site_buffers <- function(site_df, x_coord, y_coord, crs, buffers,
+                         unite = TRUE, id = "site") {
 
   if (any(buffers >= 1000)) {
     stop("Some buffer values are greater than 1000. Please provide buffers in km, rather than m.")

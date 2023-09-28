@@ -8,6 +8,13 @@
 \description{
 The satpoint package is designed to make extracting information from NetCDF files at specific geographic locations as easy as possible. You provide some geographic data and an NetCDF file, satpoint will extract the variable data automatically.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://decide-project-eu.github.io/satpoint/}
+}
+
+}
 \author{
 \strong{Maintainer}: Andrew Duncan \email{Andrew.Duncan@sruc.ac.uk}
 

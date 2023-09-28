@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_var.R
 \name{get_nc_data}
 \alias{get_nc_data}
-\title{Internal function to extract the variable values from an open nc file.}
+\title{Internal function to extract the variable values from an open netCDF file.}
 \usage{
 get_nc_data(
   ind.x,
@@ -22,14 +22,14 @@ extraction from.}
 \item{ind.y}{Index of the geographic y coordinate to start the variable
 extraction from.}
 
-\item{nc_obj}{Open nc file to extract the data from.}
+\item{nc_obj}{Open netCDF file to extract the data from.}
 
 \item{depth_vals}{The depth values (if present) to match the extracted data
 to.}
 
-\item{nc_var}{Name of the variable contained in the nc file.}
+\item{nc_var}{Name of the variable contained in the netCDF file.}
 
-\item{nc_times}{Vector of times contained with the nc file to match with the
+\item{nc_times}{Vector of times contained with the netCDF file to match with the
 extracted data.}
 
 \item{site}{Name of the location that these values will be attached to.}
@@ -39,8 +39,8 @@ indices.}
 }
 \value{
 Tibble of all variable values, times and depths extracted from the
-  provided nc file.
+  provided netCDF file.
 }
 \description{
-Internal function to extract the variable values from an open nc file.
+Internal function to extract the variable values from an open netCDF file.
 }

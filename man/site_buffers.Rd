@@ -3,7 +3,7 @@
 \name{site_buffers}
 \alias{site_buffers}
 \title{Creates circular buffers around site locations to allow for different
-spatial averaging to occur when the values are extracted from an nc file.}
+spatial averaging to occur when the values are extracted from a netCDF file.}
 \usage{
 site_buffers(
   site_df,
@@ -11,7 +11,7 @@ site_buffers(
   y_coord,
   crs,
   buffers,
-  unite = FALSE,
+  unite = TRUE,
   id = "site"
 )
 }
@@ -32,7 +32,9 @@ provided in the data frame.}
 
 \item{buffers}{The radius of the buffers to be created in km.}
 
-\item{unite}{Whether to unit the identifier of the location and the buffer.}
+\item{unite}{Whether to unit the identifier of the location and the buffer.
+Defaults to TRUE as this creates a unique location/buffer per row when
+used in extract_site_grids_nc.}
 
 \item{id}{The column name that details the location identifier.
 Defaults to "site".}
@@ -44,5 +46,18 @@ Special features data frame with the original data frame's column,
 }
 \description{
 Creates circular buffers around site locations to allow for different
-spatial averaging to occur when the values are extracted from an nc file.
+spatial averaging to occur when the values are extracted from a netCDF file.
+}
+\examples{
+# create data frame of sites
+sites <- tibble::tibble(
+  site = LETTERS[1:4],
+  longitude = c(-5.837704, -6.592514, -7.885055, -3.421410),
+  latitude = c(57.607846, 57.291280, 56.900022, 58.187849)
+)
+
+# create 10km, 15km and 20km buffers around the sites
+site_buffers(sites, x_coord = "longitude", y_coord = "latitude",
+             crs = 4326, buffers = c(10, 15, 20))
+
 }

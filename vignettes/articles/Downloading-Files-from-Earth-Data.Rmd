@@ -1,0 +1,139 @@
+---
+title: "Downloading Files from Earth Data"
+---
+
+
+
+In this article we will demonstrate how to download a collection of `.nc4` files from NASA's Earth Data resource. 
+
+## Collecting the Files
+
+The first step, which you may well have already completed is to collect the `.nc` or `.nc4` files that you wish to work with. In this example we will collect a month of **precipitation** data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/). To do this we will automate the [instructions](https://urs.earthdata.nasa.gov/documentation/for_users/data_access/r) provided NASA themselves. 
+
+### Registering with EarthData
+
+Prior to collecting the files you need to register with the service, creating a username and password. You can then create the `.netrc` and `.urs_cookies` files as recommended by [Earth Data Wiki](https://wiki.earthdata.nasa.gov/display/EL/How+To+Access+Data+With+cURL+And+Wget). 
+
+### Creating List of Files to Download
+
+Having created these files we recommend that you create a list of files to download. To do this you can follow these steps as an example:
+
+1. Navigate to https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGDL_06/summary
+2. From the Data Access menu, click Subset / Get Data
+3. From Download Method:, select "Get File Subsets using the GES DISC Subsetter"
+4. Choose your Date range, Region and Variables. We selected June, 2020 and an area around Scotland. For example purposes our variable is just PrecipitationCal.
+5. Click on Get Data. This will populate a list of links, which will take a minute or two.
+6. When complete, download the list of links.
+
+This leaves us with a file with the following contents, first few lines shown. 
+
+
+```r
+readLines("list_of_links.txt")[1:6]
+#> [1] "https://docserver.gesdisc.eosdis.nasa.gov/public/project/GPM/IMERG_ATBD_V06.pdf"                                                                                                                                       
+#> [2] "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/doc/README.GPM.pdf"                                                                                                                                                   
+#> [3] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.06/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V06.nc4.nc4?precipitationCal[0:0][1715:1775][1452:1495],time,lon[1715:1775],lat[1452:1495]"
+#> [4] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.06/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V06.nc4.nc4?precipitationCal[0:0][1715:1775][1452:1495],time,lon[1715:1775],lat[1452:1495]"
+#> [5] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.06/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V06.nc4.nc4?precipitationCal[0:0][1715:1775][1452:1495],time,lon[1715:1775],lat[1452:1495]"
+#> [6] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.06/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V06.nc4.nc4?precipitationCal[0:0][1715:1775][1452:1495],time,lon[1715:1775],lat[1452:1495]"
+```
+
+### Download and Storing Files using `R`
+
+We can now download these files. Our approach is that we'll download all of these files, and process them separately (possibly offline). We could also download and process an individual file. 
+
+We'll begin by loading the packages we'll use. Note that we use the `tidyverse` suite of packages but this is not compulsory, it is just our preference. 
+
+
+```r
+library(tidyverse)
+library(httr) # to GET the files
+library(satpoint) # to process them later
+```
+
+We can now get the files to download into `R` and use the same to create a list of output files. 
+
+
+```r
+# skip the first two lines as they are general info files
+nc_urls <- read_lines("list_of_links.txt", skip = 2)
+
+# use a quick regular expression to create list of outputs
+nc_files_to_create <- str_extract(
+  nc_urls,
+  "3B-DAY-L.MS.MRG.3IMERG.[0-9]{8}-S000000-E235959.V06.nc4"
+)
+```
+
+Finally, we can set the file paths for the `.netrc` and `.urs_cookies` files and use the `walk2()` function to download each file. 
+
+
+```r
+# file paths
+netrc_path <- ".netrc"
+cookie_path <- ".urs_cookies"
+
+# create config for GET
+set_config(config(followlocation = 1, netrc = 1,
+                    netrc_file = netrc_path,
+                    cookie = cookie_path,
+                    cookiefile = cookie_path,
+                    cookiejar = cookie_path))
+
+# progress through the files and download each file
+walk2(nc_urls, nc_files_to_create, function(x, y) {
+  GET(url = x, write_disk(y, overwrite = TRUE))
+})
+```
+
+We now have a month's worth of files to process
+
+
+```r
+list.files(pattern = ".nc4")
+#>  [1] "3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V06.nc4"
+#>  [2] "3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V06.nc4"
+#>  [3] "3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V06.nc4"
+#>  [4] "3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V06.nc4"
+#>  [5] "3B-DAY-L.MS.MRG.3IMERG.20200605-S000000-E235959.V06.nc4"
+#>  [6] "3B-DAY-L.MS.MRG.3IMERG.20200606-S000000-E235959.V06.nc4"
+#>  [7] "3B-DAY-L.MS.MRG.3IMERG.20200607-S000000-E235959.V06.nc4"
+#>  [8] "3B-DAY-L.MS.MRG.3IMERG.20200608-S000000-E235959.V06.nc4"
+#>  [9] "3B-DAY-L.MS.MRG.3IMERG.20200609-S000000-E235959.V06.nc4"
+#> [10] "3B-DAY-L.MS.MRG.3IMERG.20200610-S000000-E235959.V06.nc4"
+#> [11] "3B-DAY-L.MS.MRG.3IMERG.20200611-S000000-E235959.V06.nc4"
+#> [12] "3B-DAY-L.MS.MRG.3IMERG.20200612-S000000-E235959.V06.nc4"
+#> [13] "3B-DAY-L.MS.MRG.3IMERG.20200613-S000000-E235959.V06.nc4"
+#> [14] "3B-DAY-L.MS.MRG.3IMERG.20200614-S000000-E235959.V06.nc4"
+#> [15] "3B-DAY-L.MS.MRG.3IMERG.20200615-S000000-E235959.V06.nc4"
+#> [16] "3B-DAY-L.MS.MRG.3IMERG.20200616-S000000-E235959.V06.nc4"
+#> [17] "3B-DAY-L.MS.MRG.3IMERG.20200617-S000000-E235959.V06.nc4"
+#> [18] "3B-DAY-L.MS.MRG.3IMERG.20200618-S000000-E235959.V06.nc4"
+#> [19] "3B-DAY-L.MS.MRG.3IMERG.20200619-S000000-E235959.V06.nc4"
+#> [20] "3B-DAY-L.MS.MRG.3IMERG.20200620-S000000-E235959.V06.nc4"
+#> [21] "3B-DAY-L.MS.MRG.3IMERG.20200621-S000000-E235959.V06.nc4"
+#> [22] "3B-DAY-L.MS.MRG.3IMERG.20200622-S000000-E235959.V06.nc4"
+#> [23] "3B-DAY-L.MS.MRG.3IMERG.20200623-S000000-E235959.V06.nc4"
+#> [24] "3B-DAY-L.MS.MRG.3IMERG.20200624-S000000-E235959.V06.nc4"
+#> [25] "3B-DAY-L.MS.MRG.3IMERG.20200625-S000000-E235959.V06.nc4"
+#> [26] "3B-DAY-L.MS.MRG.3IMERG.20200626-S000000-E235959.V06.nc4"
+#> [27] "3B-DAY-L.MS.MRG.3IMERG.20200627-S000000-E235959.V06.nc4"
+#> [28] "3B-DAY-L.MS.MRG.3IMERG.20200628-S000000-E235959.V06.nc4"
+#> [29] "3B-DAY-L.MS.MRG.3IMERG.20200629-S000000-E235959.V06.nc4"
+#> [30] "3B-DAY-L.MS.MRG.3IMERG.20200630-S000000-E235959.V06.nc4"
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

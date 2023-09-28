@@ -3,3 +3,11 @@
 .RData
 .Ruserdata
 docs
+
+
+# ignoring files associated with articles
+*.nc
+*.nc4
+.netrc
+.urs_cookies
+list_of_links.txt

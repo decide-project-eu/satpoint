@@ -1,21 +1,21 @@
-#' Internal function to extract the variable values from an open nc file.
+#' Internal function to extract the variable values from an open netCDF file.
 #'
 #' @param ind.x Index of the geographic x coordinate to start the variable
 #'   extraction from.
 #' @param ind.y Index of the geographic y coordinate to start the variable
 #'   extraction from.
-#' @param nc_obj Open nc file to extract the data from.
+#' @param nc_obj Open netCDF file to extract the data from.
 #' @param depth_vals The depth values (if present) to match the extracted data
 #'   to.
-#' @param nc_var Name of the variable contained in the nc file.
-#' @param nc_times Vector of times contained with the nc file to match with the
+#' @param nc_var Name of the variable contained in the netCDF file.
+#' @param nc_times Vector of times contained with the netCDF file to match with the
 #'   extracted data.
 #' @param site Name of the location that these values will be attached to.
 #' @param swap_ind Boolean identifier of whether to change the order of the x, y
 #'   indices.
 #'
 #' @return Tibble of all variable values, times and depths extracted from the
-#'   provided nc file.
+#'   provided netCDF file.
 #'
 get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, nc_times, site,
                         swap_ind = FALSE) {

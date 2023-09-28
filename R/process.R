@@ -1,34 +1,45 @@
-#' Extract all variable values from nc file for all provided geographical locations.
+#' Extract all variable values from netCDF file for all provided geographical locations.
 #'
-#' @param nc_file File to extract the data from.
-#' @param site_locations Simple features (or spatial data frame) of geographical
-#'   areas to extract the variable values for.
-#' @param nc_crs The numerical value for the crs of the nc file.
-#' @param sites_crs The numerical value for the crs of the sites, if different
-#'   from the crs of the nc file.
+#' @param nc_file Filepath for the netCDF file to extract the data from.
+#' @param site_buffers Simple features (or spatial) data frame of geographical
+#'   areas to extract the variable values for. The data frame should contain a
+#'   single row per buffer and have a unique identifier.
+#' @param nc_crs The numerical value for the crs of the netCDF file.
+#' @param sites_crs The numerical value for the crs of site_buffers, if different
+#'   from the crs of the netCDF file.
 #' @param depth_var The name of the depth variable, if necessary, used in the
-#'   nc file. Defaults to "depth".
-#' @param id The name of the identier provided in the sites_location special
+#'   netCDF file. Defaults to "depth".
+#' @param id The name of the identifier provided in the site_buffers special
 #'   features data frame.
-#' @param nc_var_name The name of the variable in the nc file that is the focus
+#' @param nc_var_name The name of the variable in the netCDF file that is the focus
 #'   of the extraction. If not specified, an attempt will be made to establish
-#'   this from the nc file itself.
+#'   this from the netCDF file itself.
 #' @param dates_to_extract Vector of dates to extract the variable for. If not
 #'   provided, all available values will be returned.
-#' @param time_var_name Name of time/date variable to extract from the nc file.
+#' @param time_var_name Name of time/date variable to extract from the netCDF file.
 #'   Defaults to "time" as that is by far the most common variable name used.
 #' @param grid_name_x Name of the geographical x coordinate to be extracted.
-#'   If not specified, an attempt will be made to establish this from the nc
+#'   If not specified, an attempt will be made to establish this from the netCDF
 #'   file itself.
 #' @param grid_name_y Name of the geographical y coordinate to be extracted.
-#'   If not specified, an attempt will be made to establish this from the nc
+#'   If not specified, an attempt will be made to establish this from the netCDF
 #'   file itself.
 #'
 #' @return A tibble of each location id, with the corresponding variable values
 #'   depths and dates available.
+#'
 #' @export
 #'
-extract_site_grids_nc <- function(nc_file, site_locations,
+#' @examples
+#' \dontrun{
+#'
+#'  the_nc_file <- "path/to/netCDF/file.nc"
+#'
+#'  # presuming we already have a set of spatial buffers to collect data
+#'  # from
+#'  extract_site_grids_nc(the_nc_file, site_buffers = buffers, nc_crs = 4326)
+#' }
+extract_site_grids_nc <- function(nc_file, site_buffers,
                                   nc_crs, sites_crs = NULL,
                                   depth_var = "depth", id = "site",
                                   nc_var_name = NULL, dates_to_extract = NULL,
@@ -42,12 +53,17 @@ extract_site_grids_nc <- function(nc_file, site_locations,
   nc_grid <- extract_geos(nc_obj, orig_crs = nc_crs, crs = sites_crs,
                           name_x = grid_name_x, name_y = grid_name_y)
 
-  if (sf::st_crs(site_locations) != sf::st_crs(nc_grid)) {
+  if (is.na(sf::st_crs(nc_grid))) {
+    nc_grid <- sf::st_set_crs(nc_grid, nc_crs)
+    message("Setting crs for netCDF file as none provided directly from the file.")
+  }
+
+  if (sf::st_crs(site_buffers) != sf::st_crs(nc_grid)) {
     stop("Please make sure that site_locations has the same crs as supplied
          in the variable sites_crs.")
   }
 
-  sites_df <- sf::st_intersection(nc_grid, site_locations)
+  sites_df <- sf::st_intersection(nc_grid, site_buffers)
 
   # deal with depth once (as should be consistent across the nc_obj)
   depth_present <- any(grepl(depth_var, names(nc_obj$dim)))

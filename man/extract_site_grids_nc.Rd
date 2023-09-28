@@ -2,11 +2,11 @@
 % Please edit documentation in R/process.R
 \name{extract_site_grids_nc}
 \alias{extract_site_grids_nc}
-\title{Extract all variable values from nc file for all provided geographical locations.}
+\title{Extract all variable values from netCDF file for all provided geographical locations.}
 \usage{
 extract_site_grids_nc(
   nc_file,
-  site_locations,
+  site_buffers,
   nc_crs,
   sites_crs = NULL,
   depth_var = "depth",
@@ -19,38 +19,39 @@ extract_site_grids_nc(
 )
 }
 \arguments{
-\item{nc_file}{File to extract the data from.}
+\item{nc_file}{Filepath for the netCDF file to extract the data from.}
 
-\item{site_locations}{Simple features (or spatial data frame) of geographical
-areas to extract the variable values for.}
+\item{site_buffers}{Simple features (or spatial) data frame of geographical
+areas to extract the variable values for. The data frame should contain a
+single row per buffer and have a unique identifier.}
 
-\item{nc_crs}{The numerical value for the crs of the nc file.}
+\item{nc_crs}{The numerical value for the crs of the netCDF file.}
 
-\item{sites_crs}{The numerical value for the crs of the sites, if different
-from the crs of the nc file.}
+\item{sites_crs}{The numerical value for the crs of site_buffers, if different
+from the crs of the netCDF file.}
 
 \item{depth_var}{The name of the depth variable, if necessary, used in the
-nc file. Defaults to "depth".}
+netCDF file. Defaults to "depth".}
 
-\item{id}{The name of the identier provided in the sites_location special
+\item{id}{The name of the identifier provided in the site_buffers special
 features data frame.}
 
-\item{nc_var_name}{The name of the variable in the nc file that is the focus
+\item{nc_var_name}{The name of the variable in the netCDF file that is the focus
 of the extraction. If not specified, an attempt will be made to establish
-this from the nc file itself.}
+this from the netCDF file itself.}
 
 \item{dates_to_extract}{Vector of dates to extract the variable for. If not
 provided, all available values will be returned.}
 
-\item{time_var_name}{Name of time/date variable to extract from the nc file.
+\item{time_var_name}{Name of time/date variable to extract from the netCDF file.
 Defaults to "time" as that is by far the most common variable name used.}
 
 \item{grid_name_x}{Name of the geographical x coordinate to be extracted.
-If not specified, an attempt will be made to establish this from the nc
+If not specified, an attempt will be made to establish this from the netCDF
 file itself.}
 
 \item{grid_name_y}{Name of the geographical y coordinate to be extracted.
-If not specified, an attempt will be made to establish this from the nc
+If not specified, an attempt will be made to establish this from the netCDF
 file itself.}
 }
 \value{
@@ -58,5 +59,15 @@ A tibble of each location id, with the corresponding variable values
   depths and dates available.
 }
 \description{
-Extract all variable values from nc file for all provided geographical locations.
+Extract all variable values from netCDF file for all provided geographical locations.
+}
+\examples{
+\dontrun{
+
+ the_nc_file <- "path/to/netCDF/file.nc"
+
+ # presuming we already have a set of spatial buffers to collect data
+ # from
+ extract_site_grids_nc(the_nc_file, site_buffers = buffers, nc_crs = 4326)
+}
 }

@@ -1,12 +1,23 @@
-#' Extract all date or datetimes from an nc file.
+#' Extract all date or datetimes from an open netCDF file.
 #'
-#' @param nc_obj Open nc file to retrieve time data from
-#' @param time_var_name Name of time/date variable to extract from the nc file.
+#' @param nc_obj Open netCDF file to retrieve time data from
+#' @param time_var_name Name of time/date variable to extract from the netCDF file.
 #'   Defaults to "time" as that is by far the most common variable name used.
 #'
-#' @return Vector of date or datetimes extracted from the nc file.
-#' @export
+#' @return Vector of date or datetimes extracted from the netCDF file.
 #'
+#' @export
+#' @examples
+#' \dontrun{
+#'  # open the netCDF file
+#'  the_nc_obj <- ncdf4::nc_open("path/to/netCDF/file.nc")
+#'
+#'  # extract all datetimes from the file
+#'  extract_dates(the_nc_obj)
+#'
+#'  # or if the date/time variable has a different name
+#'  extract_dates(the_nc_obj, "datetime")
+#' }
 extract_dates <- function(nc_obj, time_var_name = "time") {
 
   # check input name (if provided)
@@ -29,7 +40,7 @@ extract_dates <- function(nc_obj, time_var_name = "time") {
       collapse = " ")
   )
 
-  # collect all the times stored in the NetCDF file
+  # collect all the times stored in the netCDF file
   stored_times <- ncdf4::ncvar_get(nc_obj, time_var_name)
 
   # use the time info to change things to something more readable
@@ -51,10 +62,10 @@ extract_dates <- function(nc_obj, time_var_name = "time") {
 
 
 #' Internal function to assist the user in extracting only particular dates
-#' from the results of an nc file.
+#' from the results of a netCDF file.
 #'
-#' @param all_nc_data Data frame containing all the results extracted from an
-#' nc file.
+#' @param all_nc_data Data frame containing all the results extracted from a
+#' netCDF file.
 #' @param dates_to_extract Vector of dates to be extracted.
 #'
 #' @return Data frame containing the results filtered by date.
