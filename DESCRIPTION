@@ -1,10 +1,14 @@
 Package: satpoint
 Type: Package
-Title: Automates Extraction Of Information From NETCDF Files
+Title: Automates Extraction of Information From NETCDF Files
 Version: 0.1.0
-Authors@R: person("Andrew", "Duncan", email = "Andrew.Duncan@sruc.ac.uk",
-  role = c("aut", "cre"))
-Maintainer: Andrew Duncan <Andrew.Duncan@sruc.ac.uk>
+Authors@R: c(
+    person("Andrew", "Duncan", email = "andrew.duncan.ic@uhi.ac.uk", 
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7314-9629")),
+    person("Annette", "Boerlage", email = "annette.boerlage@sruc.ac.uk",
+    role = "ctb"),
+    person("DECIDE", role = "fnd"))
+Maintainer: Andrew Duncan <andrew.duncan@sruc.ac.uk>
 Description: The satpoint package is designed to make extracting information
     from NetCDF files at specific geographic locations as easy as possible. 
     You provide some geographic data and an NetCDF file, satpoint will extract

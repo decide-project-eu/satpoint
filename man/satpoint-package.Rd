@@ -4,7 +4,7 @@
 \name{satpoint-package}
 \alias{satpoint}
 \alias{satpoint-package}
-\title{satpoint: Automates Extraction Of Information From NETCDF Files}
+\title{satpoint: Automates Extraction of Information From NETCDF Files}
 \description{
 The satpoint package is designed to make extracting information from NetCDF files at specific geographic locations as easy as possible. You provide some geographic data and an NetCDF file, satpoint will extract the variable data automatically.
 }
@@ -16,7 +16,13 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Andrew Duncan \email{Andrew.Duncan@sruc.ac.uk}
+\strong{Maintainer}: Andrew Duncan \email{andrew.duncan.ic@uhi.ac.uk} (\href{https://orcid.org/0000-0002-7314-9629}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Annette Boerlage \email{annette.boerlage@sruc.ac.uk} [contributor]
+  \item DECIDE [funder]
+}
 
 }
 \keyword{internal}
