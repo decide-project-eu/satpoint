@@ -1,8 +1,8 @@
 ---
-title: "Downloading Files from Earth Data"
+title: "Downloading files from the NASA's Earth Data Service"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Downloading Files from Earth Data}
+  %\VignetteIndexEntry{Downloading files from Earth Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,11 +20,11 @@ In this article we will demonstrate how to download a collection of `.nc4` files
 
 ## Collecting the Files
 
-The first step, which you may well have already completed is to collect the `.nc` or `.nc4` files that you wish to work with. In this example we will collect a month of **precipitation** data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/). To do this we will automate the [instructions](https://urs.earthdata.nasa.gov/documentation/for_users/data_access/r) provided NASA themselves.
+The first step, which you may well have already completed is to collect the `.nc` or `.nc4` files that you wish to work with. In this example we will collect a month of **precipitation** data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/). To do this we will automate the [instructions](https://urs.earthdata.nasa.gov/documentation/for_users/data_access/r) provided by NASA themselves.
 
 ### Registering with EarthData
 
-Prior to collecting the files you need to register with the service, creating a username and password. You can then create the `.netrc` and `.urs_cookies` files as recommended by [Earth Data Wiki](https://wiki.earthdata.nasa.gov/display/EL/How+To+Access+Data+With+cURL+And+Wget).
+Prior to collecting the files you need to register with the service, creating a username and password. You can then create the `.netrc` and `.urs_cookies` files as recommended on the [Earth Data Wiki](https://wiki.earthdata.nasa.gov/display/EL/How+To+Access+Data+With+cURL+And+Wget).
 
 ### Creating List of Files to Download
 
@@ -92,3 +92,13 @@ We now have a month's worth of files to process
 ```{r}
 list.files(pattern = ".nc4")
 ```
+
+To look at how to process these files please see the `vignette("satpoint", package = "satpoint")` vignette.
+
+## Other `R` packages that can help
+
+In the above example we collected data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/) but there are several other data repositories that you might want to make use of. Below we have put together a non-exhaustive list of data repositories and the `R` packages that you can use to collect data. In each case, data can be stored in netCDF format on your local machine - after which you will be able to process it as detailed in the `vignette("satpoint", package = "satpoint")` vignette.  
+
+- The [CopernicusMarine](https://github.com/pepijn-devries/CopernicusMarine) `R` package can access the [Copernicus Marine Data Store](https://data.marine.copernicus.eu/products)
+
+- The [ecmwfr](https://bluegreen-labs.github.io/ecmwfr/) `R` package allows users to access both the [Copernicus Marine Data Store](https://data.marine.copernicus.eu/products) and the [ECMWF Web API](https://confluence.ecmwf.int/display/WEBAPI/ECMWF+Web+API+Home).

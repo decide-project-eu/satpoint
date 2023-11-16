@@ -43,6 +43,12 @@ writeLines(all_lines, "satpoint.Rmd")
 
 ################################################################################
 # manually move images to vignette folder
+pngs_to_move <- dir_ls("figure", regexp = ".png")
+walk(pngs_to_move, function(the_file) {
+  file_move(the_file, path_file(the_file))
+})
+
+dir_delete("figure/")
 ################################################################################
 
 
