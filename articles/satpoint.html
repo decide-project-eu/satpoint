@@ -44,7 +44,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/download-netcdf.html">Downloading Files from Earth Data</a>
+    <a class="dropdown-item" href="../articles/download-netcdf.html">Downloading files from the NASA's Earth Data Service</a>
   </div>
 </li>
       </ul>
@@ -115,7 +115,7 @@ farms. In this example we construct a set of fake site locations,</p>
 <span>  latitude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">57.607846</span>, <span class="fl">57.291280</span>, <span class="fl">56.900022</span>, <span class="fl">58.187849</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">sites</span></span>
-<span><span class="co">#&gt; # A tibble: 4 x 3</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
 <span><span class="co">#&gt;   site  longitude latitude</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 A         -5.84     57.6</span></span>
@@ -142,21 +142,21 @@ use the <code><a href="../reference/site_buffers.html">site_buffers()</a></code>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
 <span><span class="co">#&gt; Bounding box:  xmin: -8.218254 ymin: 56.71742 xmax: -3.076761 ymax: 58.36968</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt; # A tibble: 12 x 2</span></span>
-<span><span class="co">#&gt;    site                                                                 geometry</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;                                                          &lt;POLYGON [B0]&gt;</span></span>
-<span><span class="co">#&gt;  1 A_10  ((-5.891903 57.52217, -5.889911 57.52227, -5.889591 57.52086, -5.88759~</span></span>
-<span><span class="co">#&gt;  2 B_10  ((-6.72602 57.23765, -6.725663 57.23627, -6.724667 57.23632, -6.724486~</span></span>
-<span><span class="co">#&gt;  3 C_10  ((-7.840913 56.81297, -7.836937 56.81323, -7.832962 56.81348, -7.83097~</span></span>
-<span><span class="co">#&gt;  4 D_10  ((-3.585398 58.16313, -3.585212 58.1618, -3.584815 58.15896, -3.58333 ~</span></span>
-<span><span class="co">#&gt;  5 A_15  ((-5.655942 57.51381, -5.656095 57.51452, -5.653116 57.51465, -5.64914~</span></span>
-<span><span class="co">#&gt;  6 B_15  ((-6.75816 57.19041, -6.757478 57.18778, -6.7535 57.188, -6.752773 57.~</span></span>
-<span><span class="co">#&gt;  7 C_15  ((-8.071833 56.81163, -8.071189 56.80955, -8.069197 56.80967, -8.06876~</span></span>
-<span><span class="co">#&gt;  8 D_15  ((-3.673967 58.16355, -3.673865 58.16284, -3.672874 58.16287, -3.67236~</span></span>
-<span><span class="co">#&gt;  9 A_20  ((-5.545368 57.51908, -5.545443 57.51943, -5.541972 57.51958, -5.54257~</span></span>
-<span><span class="co">#&gt; 10 B_20  ((-6.612155 57.47221, -6.612513 57.47361, -6.616525 57.4734, -6.620537~</span></span>
-<span><span class="co">#&gt; 11 C_20  ((-8.182937 56.82204, -8.182502 56.82065, -8.180506 56.82079, -8.17920~</span></span>
-<span><span class="co">#&gt; 12 D_20  ((-3.218432 58.33415, -3.22215 58.33405, -3.222172 58.33423, -3.22242 ~</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 12 × 2</span></span>
+<span><span class="co">#&gt;    site                                                                          geometry</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                                                                    &lt;POLYGON [°]&gt;</span></span>
+<span><span class="co">#&gt;  1 A_10  ((-5.891903 57.52217, -5.889911 57.52227, -5.889591 57.52086, -5.887599 57.5209…</span></span>
+<span><span class="co">#&gt;  2 B_10  ((-6.72602 57.23765, -6.725663 57.23627, -6.724667 57.23632, -6.724486 57.23562…</span></span>
+<span><span class="co">#&gt;  3 C_10  ((-7.840913 56.81297, -7.836937 56.81323, -7.832962 56.81348, -7.830974 56.8136…</span></span>
+<span><span class="co">#&gt;  4 D_10  ((-3.585398 58.16313, -3.585212 58.1618, -3.584815 58.15896, -3.58333 58.159, -…</span></span>
+<span><span class="co">#&gt;  5 A_15  ((-5.655942 57.51381, -5.656095 57.51452, -5.653116 57.51465, -5.649145 57.5148…</span></span>
+<span><span class="co">#&gt;  6 B_15  ((-6.75816 57.19041, -6.757478 57.18778, -6.7535 57.188, -6.752773 57.1852, -6.…</span></span>
+<span><span class="co">#&gt;  7 C_15  ((-8.071833 56.81163, -8.071189 56.80955, -8.069197 56.80967, -8.068768 56.8082…</span></span>
+<span><span class="co">#&gt;  8 D_15  ((-3.673967 58.16355, -3.673865 58.16284, -3.672874 58.16287, -3.672366 58.1593…</span></span>
+<span><span class="co">#&gt;  9 A_20  ((-5.545368 57.51908, -5.545443 57.51943, -5.541972 57.51958, -5.542574 57.5224…</span></span>
+<span><span class="co">#&gt; 10 B_20  ((-6.612155 57.47221, -6.612513 57.47361, -6.616525 57.4734, -6.620537 57.47319…</span></span>
+<span><span class="co">#&gt; 11 C_20  ((-8.182937 56.82204, -8.182502 56.82065, -8.180506 56.82079, -8.179201 56.8166…</span></span>
+<span><span class="co">#&gt; 12 D_20  ((-3.218432 58.33415, -3.22215 58.33405, -3.222172 58.33423, -3.22242 58.33423,…</span></span></code></pre></div>
 <p>As above, we can plot these buffers to demonstrate what has been
 created.</p>
 <div class="figure">
@@ -191,7 +191,7 @@ messages provided to help track the progress.</p>
 <span><span class="co">#&gt; Processing site D_10</span></span>
 <span><span class="co">#&gt; Processing site D_15</span></span>
 <span><span class="co">#&gt; Processing site D_20</span></span>
-<span><span class="co">#&gt; # A tibble: 138 x 3</span></span>
+<span><span class="co">#&gt; # A tibble: 138 × 3</span></span>
 <span><span class="co">#&gt;    site  precipitationCal datetime           </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;            &lt;dbl&gt; &lt;dttm&gt;             </span></span>
 <span><span class="co">#&gt;  1 A_10            0      2020-06-01 00:00:00</span></span>
@@ -204,7 +204,7 @@ messages provided to help track the progress.</p>
 <span><span class="co">#&gt;  8 A_15            0      2020-06-01 00:00:00</span></span>
 <span><span class="co">#&gt;  9 A_15            0      2020-06-01 00:00:00</span></span>
 <span><span class="co">#&gt; 10 A_15            0      2020-06-01 00:00:00</span></span>
-<span><span class="co">#&gt; # i 128 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 128 more rows</span></span></code></pre></div>
 <p>As you can see, we must provide an netCDF file to process, the
 buffers and the coordinate referencing system (CRS) that the netCDF file
 is making use of. The <code><a href="../reference/extract_site_grids_nc.html">extract_site_grids_nc()</a></code> function
@@ -232,7 +232,7 @@ and bind the results together.</p>
 <span><span class="va">precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_dfr</a></span><span class="op">(</span><span class="va">nc_files</span>, .f <span class="op">=</span> <span class="va">extract_site_grids_nc</span>,</span>
 <span>                  site_buffers <span class="op">=</span> <span class="va">buffers</span>, nc_crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
 <span><span class="va">precip</span></span>
-<span><span class="co">#&gt; # A tibble: 4,140 x 3</span></span>
+<span><span class="co">#&gt; # A tibble: 4,140 × 3</span></span>
 <span><span class="co">#&gt;    site  precipitationCal datetime           </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;            &lt;dbl&gt; &lt;dttm&gt;             </span></span>
 <span><span class="co">#&gt;  1 A_10            0      2020-06-01 00:00:00</span></span>
@@ -245,7 +245,7 @@ and bind the results together.</p>
 <span><span class="co">#&gt;  8 A_15            0      2020-06-01 00:00:00</span></span>
 <span><span class="co">#&gt;  9 A_15            0      2020-06-01 00:00:00</span></span>
 <span><span class="co">#&gt; 10 A_15            0      2020-06-01 00:00:00</span></span>
-<span><span class="co">#&gt; # i 4,130 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 4,130 more rows</span></span></code></pre></div>
 <p>We can then <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise()</a></code> the results and produce a quick
 plot of them.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -296,7 +296,7 @@ via the</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/extract_site_grids_nc.html">extract_site_grids_nc</a></span><span class="op">(</span>nc_file <span class="op">=</span> <span class="va">nc_files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, site_buffers <span class="op">=</span> <span class="va">buffers</span>, nc_crs <span class="op">=</span> <span class="fl">4326</span>,</span>
 <span>                      nc_var_name <span class="op">=</span> <span class="st">"precipitationCal"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 138 x 3</span></span>
+<span><span class="co">#&gt; # A tibble: 138 × 3</span></span>
 <span><span class="co">#&gt;    site  precipitationCal datetime           </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;            &lt;dbl&gt; &lt;dttm&gt;             </span></span>
 <span><span class="co">#&gt;  1 A_10            0      2020-06-01 00:00:00</span></span>
@@ -309,7 +309,7 @@ via the</p>
 <span><span class="co">#&gt;  8 A_15            0      2020-06-01 00:00:00</span></span>
 <span><span class="co">#&gt;  9 A_15            0      2020-06-01 00:00:00</span></span>
 <span><span class="co">#&gt; 10 A_15            0      2020-06-01 00:00:00</span></span>
-<span><span class="co">#&gt; # i 128 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 128 more rows</span></span></code></pre></div>
 <p>Likewise, where a <em>depth</em> variable is present, the function
 will try to extract the details automatically but the variable name can
 also be extracted.</p>
