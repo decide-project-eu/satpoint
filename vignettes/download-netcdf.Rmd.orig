@@ -2,7 +2,7 @@
 title: "Downloading files from the NASA's Earth Data Service"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Downloading files from Earth Data}
+  %\VignetteIndexEntry{Downloading files from the NASA's Earth Data Service}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -97,7 +97,7 @@ To look at how to process these files please see the `vignette("satpoint", packa
 
 ## Other `R` packages that can help
 
-In the above example we collected data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/) but there are several other data repositories that you might want to make use of. Below we have put together a non-exhaustive list of data repositories and the `R` packages that you can use to collect data. In each case, data can be stored in netCDF format on your local machine - after which you will be able to process it as detailed in the `vignette("satpoint", package = "satpoint")` vignette.  
+In the above example we collected data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/) but there are several other data repositories that you might want to make use of. Below we have put together a non-exhaustive list of data repositories and the `R` packages that you can use to collect data. In each case, data can be stored in netCDF format on your local machine - after which you will be able to process it as detailed in the `vignette("satpoint", package = "satpoint")` vignette.
 
 - The [CopernicusMarine](https://github.com/pepijn-devries/CopernicusMarine) `R` package can access the [Copernicus Marine Data Store](https://data.marine.copernicus.eu/products)
 

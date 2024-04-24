@@ -2,7 +2,7 @@
 title: "Downloading files from the NASA's Earth Data Service"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Downloading files from Earth Data}
+  %\VignetteIndexEntry{Downloading files from the NASA's Earth Data Service}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

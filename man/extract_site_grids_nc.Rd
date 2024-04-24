@@ -10,6 +10,7 @@ extract_site_grids_nc(
   nc_crs,
   sites_crs = NULL,
   depth_var = "depth",
+  depths_to_extract = NULL,
   id = "site",
   nc_var_name = NULL,
   dates_to_extract = NULL,
@@ -32,6 +33,9 @@ from the crs of the netCDF file.}
 
 \item{depth_var}{The name of the depth variable, if necessary, used in the
 netCDF file. Defaults to "depth".}
+
+\item{depths_to_extract}{The specific depth values to extract, if applicable.
+By default, if any depth values are present, all of them will be extracted.}
 
 \item{id}{The name of the identifier provided in the site_buffers special
 features data frame.}

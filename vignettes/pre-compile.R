@@ -3,6 +3,7 @@
 # github
 
 library(knitr)
+library(fs)
 
 # set working directory to make certain steps easier
 setwd(file.path(rstudioapi::getActiveProject(), "vignettes"))

@@ -9,6 +9,8 @@
 #'   from the crs of the netCDF file.
 #' @param depth_var The name of the depth variable, if necessary, used in the
 #'   netCDF file. Defaults to "depth".
+#' @param depths_to_extract The specific depth values to extract, if applicable.
+#'   By default, if any depth values are present, all of them will be extracted.
 #' @param id The name of the identifier provided in the site_buffers special
 #'   features data frame.
 #' @param nc_var_name The name of the variable in the netCDF file that is the focus
@@ -41,7 +43,8 @@
 #' }
 extract_site_grids_nc <- function(nc_file, site_buffers,
                                   nc_crs, sites_crs = NULL,
-                                  depth_var = "depth", id = "site",
+                                  depth_var = "depth", depths_to_extract = NULL,
+                                  id = "site",
                                   nc_var_name = NULL, dates_to_extract = NULL,
                                   time_var_name = "time",
                                   grid_name_x = "", grid_name_y = "") {
@@ -124,6 +127,19 @@ extract_site_grids_nc <- function(nc_file, site_buffers,
     all_nc_sites <- filter_dates(all_nc_sites, dates_to_extract)
   }
 
+  # deal with extracting specific depths (if present)
+  if (!is.null(depths_to_extract)) {
+    if (is.null(depth_values)) {
+      warning("The netCDF file does not include any depth values.")
+    } else {
+      depths_to_extract <- as.numeric(depths_to_extract)
+      if (!any(depths_to_extract %in% depth_values)) {
+        warning("Depth values specified do not appear in the file, all depth values will be returned.")
+      } else {
+        all_nc_sites <- dplyr::filter(all_nc_sites, .data$depth %in% depths_to_extract)
+      }
+    }
+  }
 
   ncdf4::nc_close(nc_obj)
 
