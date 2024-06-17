@@ -49,7 +49,7 @@ extract_dates <- function(nc_obj, time_var_name = "time") {
   } else if (grepl("hours", time_period)) {
     all_dates <- time_base + lubridate::hours(stored_times)
   } else if (grepl("days", time_period)) {
-    all_dates <- time_base + lubridate::days(stored_times)
+    all_dates <- time_base + lubridate::ddays(stored_times)
   } else {
     all_dates <- stored_times
     warning("The time period utilised in the files is not seconds, hours or days.
