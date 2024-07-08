@@ -34,7 +34,7 @@ get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, nc_times, site
   if (!is.null(depth_vals) && length(nc_times) > 1) {
     nc_start <- c(first_ind , second_ind, 1, 1)
     nc_count <- c(1, 1, -1, -1)
-    all_nc_times <- rep(nc_times, length(depth_vals))
+    all_nc_times <- rep(nc_times, each = length(depth_vals), times = 1)
   } else {
     nc_start <- c(first_ind , second_ind, 1)
     nc_count <- c(1, 1, -1)
@@ -54,7 +54,7 @@ get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, nc_times, site
 
   # only adding a depth column if needed
   if (length(depth_vals) > 0) {
-    nc_data$depth <- sort(rep(depth_vals, length(nc_times)))
+    nc_data$depth <- rep(depth_vals, times = length(nc_times))
   }
 
   nc_data <- dplyr::mutate(nc_data, site = site)
@@ -62,11 +62,4 @@ get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, nc_times, site
   return(nc_data)
 
 }
-
-
-
-
-
-
-
 
