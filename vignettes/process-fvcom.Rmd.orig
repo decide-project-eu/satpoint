@@ -1,0 +1,78 @@
+---
+title: "Processing fvcom files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Processing fvcom files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In this article we will demonstrate how to extract data from `fvcom` `.nc` files using similar functions to those for general `.nc`/`.nc4` files.
+
+## Alternative Packages
+
+Before we demonstrate the functionality available here, we would like to make it clear that we have not built a package to deal with all possible aspects of an `fvcom` file. If you are looking for additional functionality then we would recommend one of the following packages:
+
+- the [FVCOM package](https://github.com/BigelowLab/fvcom),
+- the [fvcom.tbx package](https://github.com/edwardlavender/fvcom.tbx).
+
+## Extracting Data from `fvcom` files
+
+For the purpose of this example, we have collected the url for a `fvcom` file and stored it in a separate `.txt` file and so we can load the required packages, along with collecting the file to be read in. 
+
+```{r}
+library(tidyverse)
+library(satpoint)
+fvcom_file <- read_lines("fvcom_links.txt")
+```
+
+`fvcom` files have data constructed on a triangular mesh and the stored variables are either provided in terms of the nodes that form the bounds of each triangle or the centroid of triangle. In the `fvcom` file these are denoted by the `node` and `nele` dimensions respectively. 
+
+Within this package we have only built functionality to extract the variables associated with the nodes. To see which variables are available and whether they are recorded at the `node` or `nele` level, we can use
+
+```{r}
+nc_obj <- ncdf4::nc_open(fvcom_file)
+collect_variables(nc_obj, nodes = TRUE)
+```
+
+To extract the variable values themselves, we can choose one of the variables above that are recorded at the `node` level and run
+
+```{r}
+extract_nodes_fvcom(nc_obj, nc_var_name = "precip")
+```
+
+## Summarising the values across buffers
+
+If we want to extract the data over specific areas, as we did in the `vignette("satpoint", package = "satpoint")` vignette, we first need to construct the buffers. Taking the same sites as before:
+
+
+```{r}
+sites <- tibble(
+  site = LETTERS[1:4],
+  longitude = c(-5.837704, -6.592514, -7.885055, -3.421410),
+  latitude = c(57.607846, 57.291280, 56.900022, 58.187849)
+)
+sites
+```
+
+We can create buffers but as the `fvcom` file is stored at a smaller scale, we want the buffers to be smaller. 
+
+```{r}
+buffers <- site_buffers(sites, x_coord = "longitude", y_coord = "latitude", 
+                        crs = 4326, buffers = c(2))
+buffers
+```
+
+We can now extract the data from our `fvcom` file and average the values across the buffers
+
+```{r}
+extract_site_grids_fvcom(fvcom_file, sites = buffers, 
+                         nc_crs = 4326, nc_var_name = "precip")
+```
+
+
+
+
+
+
+

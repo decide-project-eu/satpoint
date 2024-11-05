@@ -3,6 +3,9 @@
 #' @param nc_obj Open netCDF file to retrieve time data from
 #' @param time_var_name Name of time/date variable to extract from the netCDF file.
 #'   Defaults to "time" as that is by far the most common variable name used.
+#' @param pretty Boolean variable to round data to nearest hour. This is
+#'   relevant for when hourly data has been recorded, particularly as part of
+#'   an FVCOM file, where the timestamps are often not quite on the hour.
 #'
 #' @return Vector of date or datetimes extracted from the netCDF file.
 #'
@@ -18,7 +21,7 @@
 #'  # or if the date/time variable has a different name
 #'  extract_dates(the_nc_obj, "datetime")
 #' }
-extract_dates <- function(nc_obj, time_var_name = "time") {
+extract_dates <- function(nc_obj, time_var_name = "time", pretty = FALSE) {
 
   # check input name (if provided)
   rlang::arg_match0(time_var_name, values = names(nc_obj$dim))
@@ -55,6 +58,11 @@ extract_dates <- function(nc_obj, time_var_name = "time") {
     warning("The time period utilised in the files is not seconds, hours or days.
              Times will be returned without conversion.")
   }
+
+  if (pretty) {
+    all_dates <- lubridate::round_date(all_dates, unit = "hour")
+  }
+
 
   return(all_dates)
 }

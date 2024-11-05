@@ -53,11 +53,11 @@ which we can plot just for reference purposes.
 library(sf)
 library(tmap)
 scot <- read_sf("~/VSIU/shapefiles/scot")
-sites_sf <- st_as_sf(sites, coords = c("longitude", "latitude"))
+sites_sf <- st_as_sf(sites, coords = c("longitude", "latitude"), crs = 4326)
 tm_shape(scot) +
   tm_polygons() +
   tm_shape(sites_sf) +
-  tm_markers()
+  tm_markers(size = 0.001)
 ```
 
 ### Creating Buffer Zones
@@ -75,7 +75,7 @@ As above, we can plot these buffers to demonstrate what has been created.
 tm_shape(scot) +
   tm_polygons() +
   tm_shape(buffers) +
-  tm_polygons(alpha = 0)
+  tm_polygons(fill_alpha = 0)
 ```
 
 **Note:** If you are creating your own buffer zones, which do not have to be circular, the expectation is that the `buffers` data frame will have a unique row per buffer and these should have a unique identifier. In our case it is the *site* column.
@@ -86,7 +86,7 @@ tm_shape(scot) +
 Now we have the buffers we can use the main package function `extract_site_grids_nc()` to extract all the data values. We'll do this for one file first, to demonstrate the inputs and the messages provided to help track the progress.
 
 ```{r, message = TRUE}
-extract_site_grids_nc(nc_file = nc_files[1], site_buffers = buffers, nc_crs = 4326)
+extract_site_grids_nc(nc_file = nc_files[1], sites = buffers, nc_crs = 4326)
 ```
 
 As you can see, we must provide an netCDF file to process, the buffers and the coordinate referencing system (CRS) that the netCDF file is making use of. The `extract_site_grids_nc()` function completes the following steps:
@@ -100,12 +100,12 @@ The result is a `tibble` with the *site*, *data value* (in the above example *pr
 
 ### Processing all files
 
-To demonstrate processing multiple files, we'll use the `map2_dfr()` function to progress through all the input files and bind the results together.
+To demonstrate processing multiple files, we'll use the `map()` function to progress through all the input files and bind the results together.
 
 ```{r}
 # Note that messages are hidden here to avoid a lot of repetition
 precip <- map(nc_files, .f = extract_site_grids_nc,
-              site_buffers = buffers, nc_crs = 4326) %>%
+              sites = buffers, nc_crs = 4326) %>%
   list_rbind()
 precip
 ```

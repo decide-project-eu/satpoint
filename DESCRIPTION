@@ -18,13 +18,15 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     dplyr,
+    glue,
+    lifecycle,
     lubridate,
     ncdf4,
     rlang,
     sf,
     tibble
 Config/Needs/website: tidyverse, rmarkdown
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 URL: https://decide-project-eu.github.io/satpoint/
 Suggests: 
     knitr,

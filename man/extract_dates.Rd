@@ -4,13 +4,17 @@
 \alias{extract_dates}
 \title{Extract all date or datetimes from an open netCDF file.}
 \usage{
-extract_dates(nc_obj, time_var_name = "time")
+extract_dates(nc_obj, time_var_name = "time", pretty = FALSE)
 }
 \arguments{
 \item{nc_obj}{Open netCDF file to retrieve time data from}
 
 \item{time_var_name}{Name of time/date variable to extract from the netCDF file.
 Defaults to "time" as that is by far the most common variable name used.}
+
+\item{pretty}{Boolean variable to round data to nearest hour. This is
+relevant for when hourly data has been recorded, particularly as part of
+an FVCOM file, where the timestamps are often not quite on the hour.}
 }
 \value{
 Vector of date or datetimes extracted from the netCDF file.

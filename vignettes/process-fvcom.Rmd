@@ -1,0 +1,187 @@
+---
+title: "Processing fvcom files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Processing fvcom files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In this article we will demonstrate how to extract data from `fvcom` `.nc` files using similar functions to those for general `.nc`/`.nc4` files.
+
+## Alternative Packages
+
+Before we demonstrate the functionality available here, we would like to make it clear that we have not built a package to deal with all possible aspects of an `fvcom` file. If you are looking for additional functionality then we would recommend one of the following packages:
+
+- the [FVCOM package](https://github.com/BigelowLab/fvcom),
+- the [fvcom.tbx package](https://github.com/edwardlavender/fvcom.tbx).
+
+## Extracting Data from `fvcom` files
+
+For the purpose of this example, we have collected the url for a `fvcom` file and stored it in a separate `.txt` file and so we can load the required packages, along with collecting the file to be read in. 
+
+
+``` r
+library(tidyverse)
+library(satpoint)
+fvcom_file <- read_lines("fvcom_links.txt")
+```
+
+`fvcom` files have data constructed on a triangular mesh and the stored variables are either provided in terms of the nodes that form the bounds of each triangle or the centroid of triangle. In the `fvcom` file these are denoted by the `node` and `nele` dimensions respectively. 
+
+Within this package we have only built functionality to extract the variables associated with the nodes. To see which variables are available and whether they are recorded at the `node` or `nele` level, we can use
+
+
+``` r
+nc_obj <- ncdf4::nc_open(fvcom_file)
+collect_variables(nc_obj, nodes = TRUE)
+```
+
+```
+## # A tibble: 53 × 3
+##    name          longname             node_or_elem
+##  * <chr>         <chr>                <chr>       
+##  1 nprocs        number of processors <NA>        
+##  2 partition     partition            nele        
+##  3 fvcom_mesh    fvcom_mesh           <NA>        
+##  4 lon           nodal longitude      node        
+##  5 lat           nodal latitude       node        
+##  6 lonc          zonal longitude      nele        
+##  7 latc          zonal latitude       nele        
+##  8 siglay_center Sigma Layers         nele        
+##  9 siglev_center Sigma Levels         nele        
+## 10 h_center      Bathymetry           nele        
+## # ℹ 43 more rows
+```
+
+To extract the variable values themselves, we can choose one of the variables above that are recorded at the `node` level and run
+
+
+``` r
+extract_nodes_fvcom(nc_obj, nc_var_name = "precip")
+```
+
+```
+## # A tibble: 2,399,976 × 3
+##           value date_time            node
+##           <dbl> <dttm>              <int>
+##  1 0.0000000150 2020-01-01 00:00:00     1
+##  2 0.0000000162 2020-01-01 00:00:00     2
+##  3 0.0000000172 2020-01-01 00:00:00     3
+##  4 0.0000000182 2020-01-01 00:00:00     4
+##  5 0.0000000192 2020-01-01 00:00:00     5
+##  6 0.0000000195 2020-01-01 00:00:00     6
+##  7 0.0000000198 2020-01-01 00:00:00     7
+##  8 0.0000000202 2020-01-01 00:00:00     8
+##  9 0.0000000205 2020-01-01 00:00:00     9
+## 10 0.0000000199 2020-01-01 00:00:00    10
+## # ℹ 2,399,966 more rows
+```
+
+## Summarising the values across buffers
+
+If we want to extract the data over specific areas, as we did in the `vignette("satpoint", package = "satpoint")` vignette, we first need to construct the buffers. Taking the same sites as before:
+
+
+
+``` r
+sites <- tibble(
+  site = LETTERS[1:4],
+  longitude = c(-5.837704, -6.592514, -7.885055, -3.421410),
+  latitude = c(57.607846, 57.291280, 56.900022, 58.187849)
+)
+sites
+```
+
+```
+## # A tibble: 4 × 3
+##   site  longitude latitude
+##   <chr>     <dbl>    <dbl>
+## 1 A         -5.84     57.6
+## 2 B         -6.59     57.3
+## 3 C         -7.89     56.9
+## 4 D         -3.42     58.2
+```
+
+We can create buffers but as the `fvcom` file is stored at a smaller scale, we want the buffers to be smaller. 
+
+
+``` r
+buffers <- site_buffers(sites, x_coord = "longitude", y_coord = "latitude", 
+                        crs = 4326, buffers = c(2))
+buffers
+```
+
+```
+## Simple feature collection with 4 features and 1 field
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -7.918481 ymin: 56.88169 xmax: -3.386795 ymax: 58.20619
+## Geodetic CRS:  WGS 84
+## # A tibble: 4 × 2
+##   site                                                                             geometry
+##   <chr>                                                                       <POLYGON [°]>
+## 1 A_2   ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 57.59795, -5.865805 57.59797, -…
+## 2 B_2   ((-6.615266 57.27812, -6.615221 57.27795, -6.614972 57.27796, -6.614927 57.27779, …
+## 3 C_2   ((-7.907938 56.88706, -7.907885 56.88689, -7.907636 56.88691, -7.907583 56.88673, …
+## 4 D_2   ((-3.446063 58.17525, -3.445816 58.17525, -3.445792 58.17508, -3.445545 58.17508, …
+```
+
+We can now extract the data from our `fvcom` file and average the values across the buffers
+
+
+``` r
+extract_site_grids_fvcom(fvcom_file, sites = buffers, 
+                         nc_crs = 4326, nc_var_name = "precip")
+```
+
+```
+## Extracting the coordinate names directly from the file
+```
+
+```
+## Warning in collect_geo_names(nc_obj, name_x, name_y): More than one possible match for
+## coordinate names, the first match will be used.
+```
+
+```
+## Warning: attribute variables are assumed to be spatially constant throughout all
+## geometries
+```
+
+```
+## Collecting variable from file.
+```
+
+```
+## Summarising variable across site
+```
+
+```
+## Simple feature collection with 72 features and 3 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -7.918481 ymin: 56.88169 xmax: -5.803766 ymax: 57.62605
+## Geodetic CRS:  WGS 84
+## # A tibble: 72 × 4
+##    site  date_time             precip                                              geometry
+##    <chr> <dttm>                 <dbl>                                         <POLYGON [°]>
+##  1 A_2   2020-01-01 00:00:00 2.59e-16 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+##  2 A_2   2020-01-01 01:00:00 5.04e-12 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+##  3 A_2   2020-01-01 02:00:00 1.01e-11 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+##  4 A_2   2020-01-01 03:00:00 1.51e-11 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+##  5 A_2   2020-01-01 04:00:00 8.89e-10 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+##  6 A_2   2020-01-01 05:00:00 1.76e- 9 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+##  7 A_2   2020-01-01 06:00:00 2.64e- 9 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+##  8 A_2   2020-01-01 07:00:00 3.65e- 9 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+##  9 A_2   2020-01-01 08:00:00 4.66e- 9 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+## 10 A_2   2020-01-01 09:00:00 5.68e- 9 ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 5…
+## # ℹ 62 more rows
+```
+
+
+
+
+
+
+

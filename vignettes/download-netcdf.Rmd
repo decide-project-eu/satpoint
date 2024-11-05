@@ -33,7 +33,7 @@ Having created these files we recommend that you create a list of files to downl
 This leaves us with a file with the following contents, first few lines shown.
 
 
-```r
+``` r
 readLines("list_of_links.txt")[1:6]
 #> [1] "https://docserver.gesdisc.eosdis.nasa.gov/public/project/GPM/IMERG_ATBD_V06.pdf"                                                                                                                                       
 #> [2] "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/doc/README.GPM.pdf"                                                                                                                                                   
@@ -49,7 +49,7 @@ We can now download these files. Our approach is that we'll download all of thes
 We'll begin by loading the packages we'll use. Note that we use the `tidyverse` suite of packages but this is not compulsory, it is just our preference.
 
 
-```r
+``` r
 library(tidyverse)
 library(httr) # to GET the files
 library(satpoint) # to process them later
@@ -58,7 +58,7 @@ library(satpoint) # to process them later
 We can now get the files to download into `R` and use the same to create a list of output files.
 
 
-```r
+``` r
 # skip the first two lines as they are general info files
 nc_urls <- read_lines("list_of_links.txt", skip = 2)
 
@@ -72,7 +72,7 @@ nc_files_to_create <- str_extract(
 Finally, we can set the file paths for the `.netrc` and `.urs_cookies` files and use the `walk2()` function to download each file.
 
 
-```r
+``` r
 # file paths
 netrc_path <- ".netrc"
 cookie_path <- ".urs_cookies"
@@ -93,7 +93,7 @@ walk2(nc_urls, nc_files_to_create, function(x, y) {
 We now have a month's worth of files to process
 
 
-```r
+``` r
 list.files(pattern = ".nc4")
 #>  [1] "3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V06.nc4"
 #>  [2] "3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V06.nc4"
@@ -131,7 +131,7 @@ To look at how to process these files please see the `vignette("satpoint", packa
 
 ## Other `R` packages that can help
 
-In the above example we collected data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/) but there are several other data repositories that you might want to make use of. Below we have put together a non-exhaustive list of data repositories and the `R` packages that you can use to collect data. In each case, data can be stored in netCDF format on your local machine - after which you will be able to process it as detailed in the `vignette("satpoint", package = "satpoint")` vignette.  
+In the above example we collected data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/) but there are several other data repositories that you might want to make use of. Below we have put together a non-exhaustive list of data repositories and the `R` packages that you can use to collect data. In each case, data can be stored in netCDF format on your local machine - after which you will be able to process it as detailed in the `vignette("satpoint", package = "satpoint")` vignette.
 
 - The [CopernicusMarine](https://github.com/pepijn-devries/CopernicusMarine) `R` package can access the [Copernicus Marine Data Store](https://data.marine.copernicus.eu/products)
 
