@@ -94,14 +94,22 @@ extract_site_grids_nc <- function(nc_file, sites,
 
   # extract variable name once
   if (is.null(nc_var_name)) {
-    var_name <- names(nc_obj$var)[1]
-    message(paste("Variable extracted from file is", var_name))
+    # check for multiple variables
+    all_vars <- collect_variables(nc_obj)
+
+    if (nrow(all_vars) == 1) {
+      var_name <- names(nc_obj$var)[1]
+      message(paste("Variable extracted from file is", var_name))
+    } else {
+      message("Multiple variables found, all will be returned.")
+      var_name <- all_vars$name
+    }
   } else {
     var_name <- nc_var_name
   }
 
   # check dimensions to ensure that the order of indices is correct
-  nc_dims <- nc_obj$var[[var_name]][["size"]]
+  nc_dims <- nc_obj$var[[var_name[1]]][["size"]]
   # the first two parts should be the x, y dimensions but sometimes these are
   # swapped
   max_x_index <- max(nc_grid$ind.x)

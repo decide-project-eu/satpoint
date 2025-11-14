@@ -41,25 +41,36 @@ get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, nc_times, site
     all_nc_times <- nc_times
   }
 
-  # collect the data from the nc file and rearrange
-  nc_data <- ncdf4::ncvar_get(nc_obj, nc_var, start = nc_start, count = nc_count) |>
-    as.list() |>
-    unlist() |>
-    as.data.frame()
+  nc_data_full <- lapply(nc_var, function(this_var) {
+    # collect the data from the nc file and rearrange
+    nc_data <- ncdf4::ncvar_get(nc_obj, this_var, start = nc_start, count = nc_count) |>
+      as.list() |>
+      unlist() |>
+      as.data.frame()
 
-  colnames(nc_data) <- nc_var
+    # if only one variable is being returned then it is the column name
+    # otherwise, we use two columns - one for the value, the other for the variable
+    if (length(nc_var) == 1) {
+      colnames(nc_data) <- this_var
+    } else {
+      colnames(nc_data) <- "value"
+      nc_data$var <- this_var
+    }
 
-  # add the times (for ease, using base R notation)
-  nc_data$datetime <- all_nc_times
+    # add the times (for ease, using base R notation)
+    nc_data$datetime <- all_nc_times
 
-  # only adding a depth column if needed
-  if (length(depth_vals) > 0) {
-    nc_data$depth <- rep(depth_vals, times = length(nc_times))
-  }
+    # only adding a depth column if needed
+    if (length(depth_vals) > 0) {
+      nc_data$depth <- rep(depth_vals, times = length(nc_times))
+    }
 
-  nc_data <- dplyr::mutate(nc_data, site = site)
+    nc_data <- dplyr::mutate(nc_data, site = site)
+  })
 
-  return(nc_data)
+  nc_data_full <- do.call("rbind", nc_data_full)
+
+  return(nc_data_full)
 
 }
 
