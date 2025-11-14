@@ -1,0 +1,57 @@
+# Extract all geographical coordinates of the nodes from a fvcom netCDF file and convert to simple features object.
+
+Extract all geographical coordinates of the nodes from a fvcom netCDF
+file and convert to simple features object.
+
+## Usage
+
+``` r
+extract_geos_fvcom(nc_obj, orig_crs, crs = NULL, name_x = "", name_y = "")
+```
+
+## Arguments
+
+- nc_obj:
+
+  Open fvcom netCDF file to retrieve time data from.
+
+- orig_crs:
+
+  Numerical value of the crs used in the netCDF file.
+
+- crs:
+
+  Numerical value of the crs to change results into, if different from
+  the original crs.
+
+- name_x:
+
+  Name of the geographical x coordinate to be extracted. If not
+  specified, an attempt will be made to establish this from the netCDF
+  file itself.
+
+- name_y:
+
+  Name of the geographical y coordinate to be extracted. If not
+  specified, an attempt will be made to establish this from the netCDF
+  file itself.
+
+## Value
+
+Special features data frame containing the geographic coordinates of the
+nodes in the provided fcvom netCDF file.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+ # open the netCDF file
+ the_nc_obj <- ncdf4::nc_open("path/to/netCDF/file.nc")
+
+ # extract all spatial points from the netCDF file
+ extract_geos_fvcom(the_nc_obj, crs = 4326)
+
+ # if the names of the spatial coordindates aren't picked up automatically
+ extract_geos_fvcom(the_nc_obj, crs = 4326, name_x = "lon", name_y = "lat")
+} # }
+```
