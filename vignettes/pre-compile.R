@@ -1,6 +1,8 @@
 # this script pre-builds the articles for the pkgdown site as they rely
 # on files that cannot be committed and therefore they can't be built on
 # github
+#
+# NOte: build pkgdown before checking/building package
 
 library(knitr)
 library(fs)
@@ -24,6 +26,10 @@ if(length(articles.orig) == length(articles.rmd)) {
 }
 
 # step 2: edit the files
+
+# if for some reason the .orig files have disappeared can use this line
+# to get articles.orig back
+# articles.orig <- gsub(".Rmd", ".Rmd.orig", articles.rmd)
 
 # step 3: rename them back to .orig
 lapply(articles.orig, function(file) {

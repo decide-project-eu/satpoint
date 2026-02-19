@@ -1,13 +1,13 @@
 Package: satpoint
 Type: Package
 Title: Automates Extraction of Information From NETCDF Files
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person("Andrew", "Duncan", email = "andrew.duncan.ic@uhi.ac.uk", 
     role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7314-9629")),
     person("Annette", "Boerlage", email = "annette.boerlage@sruc.ac.uk",
-    role = "ctb"),
-    person("DECIDE", role = "fnd"))
+    role = c("aut", "ctb")),
+    person("This work has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No. 101000494 (DECIDE), the Sustainable Aquaculture Innovation Centre (SAIC) under grant reference No. SL_2021_06, and the the Biotechnology and Biological Sciences Research Council (BBSRC) grant reference No. BB/Z515231/1.", role = "fnd"))
 Maintainer: Andrew Duncan <andrew.duncan@sruc.ac.uk>
 Description: The satpoint package is designed to make extracting information
     from NetCDF files at specific geographic locations as easy as possible. 
@@ -16,6 +16,8 @@ Description: The satpoint package is designed to make extracting information
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 4.1)
 Imports: 
     dplyr,
     glue,
@@ -26,7 +28,7 @@ Imports:
     sf,
     tibble
 Config/Needs/website: tidyverse, rmarkdown
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 URL: https://decide-project-eu.github.io/satpoint/
 Suggests: 
     knitr,

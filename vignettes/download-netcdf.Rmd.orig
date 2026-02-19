@@ -7,14 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE
-)
-```
+
 
 In this article we will demonstrate how to download a collection of `.nc4` files from NASA's Earth Data resource.
 
@@ -30,17 +23,24 @@ Prior to collecting the files you need to register with the service, creating a 
 
 Having created these files we recommend that you create a list of files to download. To do this you can follow these steps as an example:
 
-1. Navigate to https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGDL_06/summary
+1. Navigate to https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGDL_07/summary
 2. From the Data Access menu, click Subset / Get Data
 3. From Download Method:, select "Get File Subsets using the GES DISC Subsetter"
-4. Choose your Date range, Region and Variables. We selected June, 2020 and an area around Scotland. For example purposes our variable is just PrecipitationCal.
+4. Choose your Date range, Region and Variables. We selected June, 2020 and an area around Scotland. For example purposes our variable is just Precipitation.
 5. Click on Get Data. This will populate a list of links, which will take a minute or two.
 6. When complete, download the list of links.
 
 This leaves us with a file with the following contents, first few lines shown.
 
-```{r}
+
+``` r
 readLines("list_of_links.txt")[1:6]
+#> [1] "https://arthurhou.pps.eosdis.nasa.gov/Documents/IMERG_V07_ATBD_final.pdf"                                                                                                                                            
+#> [2] "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/doc/README.GPM.pdf"                                                                                                                                                 
+#> [3] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
+#> [4] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
+#> [5] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
+#> [6] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
 ```
 ### Download and Storing Files using `R`
 
@@ -48,7 +48,8 @@ We can now download these files. Our approach is that we'll download all of thes
 
 We'll begin by loading the packages we'll use. Note that we use the `tidyverse` suite of packages but this is not compulsory, it is just our preference.
 
-```{r}
+
+``` r
 library(tidyverse)
 library(httr) # to GET the files
 library(satpoint) # to process them later
@@ -56,49 +57,21 @@ library(satpoint) # to process them later
 
 We can now get the files to download into `R` and use the same to create a list of output files.
 
-```{r}
+
+``` r
 # skip the first two lines as they are general info files
 nc_urls <- read_lines("list_of_links.txt", skip = 2)
 
 # use a quick regular expression to create list of outputs
 nc_files_to_create <- str_extract(
   nc_urls,
-  "3B-DAY-L.MS.MRG.3IMERG.[0-9]{8}-S000000-E235959.V06.nc4"
+  "3B-DAY-L.MS.MRG.3IMERG.[0-9]{8}-S000000-E235959.V07B.nc4"
 )
 ```
 
 Finally, we can set the file paths for the `.netrc` and `.urs_cookies` files and use the `walk2()` function to download each file.
 
-```{r}
-# file paths
-netrc_path <- ".netrc"
-cookie_path <- ".urs_cookies"
 
-# create config for GET
-set_config(config(followlocation = 1, netrc = 1,
-                    netrc_file = netrc_path,
-                    cookie = cookie_path,
-                    cookiefile = cookie_path,
-                    cookiejar = cookie_path))
 
-# progress through the files and download each file
-walk2(nc_urls, nc_files_to_create, function(x, y) {
-  GET(url = x, write_disk(y, overwrite = TRUE))
-})
-```
 
-We now have a month's worth of files to process
 
-```{r}
-list.files(pattern = ".nc4")
-```
-
-To look at how to process these files please see the `vignette("satpoint", package = "satpoint")` vignette.
-
-## Other `R` packages that can help
-
-In the above example we collected data from [https://urs.earthdata.nasa.gov/](https://urs.earthdata.nasa.gov/) but there are several other data repositories that you might want to make use of. Below we have put together a non-exhaustive list of data repositories and the `R` packages that you can use to collect data. In each case, data can be stored in netCDF format on your local machine - after which you will be able to process it as detailed in the `vignette("satpoint", package = "satpoint")` vignette.
-
-- The [CopernicusMarine](https://github.com/pepijn-devries/CopernicusMarine) `R` package can access the [Copernicus Marine Data Store](https://data.marine.copernicus.eu/products)
-
-- The [ecmwfr](https://bluegreen-labs.github.io/ecmwfr/) `R` package allows users to access both the [Copernicus Marine Data Store](https://data.marine.copernicus.eu/products) and the [ECMWF Web API](https://confluence.ecmwf.int/display/WEBAPI/ECMWF+Web+API+Home).

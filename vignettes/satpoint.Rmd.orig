@@ -116,13 +116,14 @@ We can then `summarise()` the results and produce a quick plot of them.
 sum_precip <- precip %>%
   separate_wider_delim(site, names = c("site", "buffer"), delim = "_") %>%
   group_by(site, buffer, datetime) %>%
-  summarise(precipitationCal = mean(precipitationCal, na.rm = TRUE),
+  summarise(precipitation = mean(precipitation, na.rm = TRUE),
             .groups = "drop")
 
-ggplot(sum_precip, aes(x = datetime, y = precipitationCal)) +
+ggplot(sum_precip, aes(x = datetime, y = precipitation)) +
   geom_line(aes(col = buffer)) +
   geom_point() +
-  facet_wrap(vars(site), ncol = 2)
+  facet_grid(buffer ~ site) +
+  labs(x = "Date", y = "Mean Precipitation", colour = "Buffer")
 ```
 
 
@@ -172,7 +173,7 @@ By default `extract_site_grids_nc()` will try its best to figure out which varia
 ```{r}
 # not run
 extract_site_grids_nc(nc_file = nc_files[1], site_buffers = buffers, nc_crs = 4326,
-                      nc_var_name = "precipitationCal")
+                      nc_var_name = "precipitation")
 ```
 
 Likewise, where a *depth* variable is present, the function will try to extract the details automatically but the variable name can also be extracted.
@@ -180,7 +181,7 @@ Likewise, where a *depth* variable is present, the function will try to extract 
 ```{r, eval = FALSE}
 # not run
 extract_site_grids_nc(nc_file = nc_files[1], site_buffers = buffers, nc_crs = 4326,
-                      nc_var_name = "precipitationCal", depth_var = "Depth")
+                      nc_var_name = "precipitation", depth_var = "Depth")
 ```
 
 
