@@ -16,8 +16,15 @@ Useful links:
 **Maintainer**: Andrew Duncan <andrew.duncan.ic@uhi.ac.uk>
 ([ORCID](https://orcid.org/0000-0002-7314-9629))
 
-Other contributors:
+Authors:
 
 - Annette Boerlage <annette.boerlage@sruc.ac.uk> \[contributor\]
 
-- DECIDE \[funder\]
+Other contributors:
+
+- This work has received funding from the European Union’s Horizon 2020
+  research and innovation programme under grant agreement No. 101000494
+  (DECIDE), the Sustainable Aquaculture Innovation Centre (SAIC) under
+  grant reference No. SL_2021_06, and the the Biotechnology and
+  Biological Sciences Research Council (BBSRC) grant reference No.
+  BB/Z515231/1. \[funder\]

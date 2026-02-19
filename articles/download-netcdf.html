@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">satpoint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,14 +92,14 @@ Data Wiki</a>.</p>
 files to download. To do this you can follow these steps as an
 example:</p>
 <ol style="list-style-type: decimal">
-<li>Navigate to <a href="https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGDL_06/summary" class="external-link uri">https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGDL_06/summary</a>
+<li>Navigate to <a href="https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGDL_07/summary" class="external-link uri">https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGDL_07/summary</a>
 </li>
 <li>From the Data Access menu, click Subset / Get Data</li>
 <li>From Download Method:, select “Get File Subsets using the GES DISC
 Subsetter”</li>
 <li>Choose your Date range, Region and Variables. We selected June, 2020
 and an area around Scotland. For example purposes our variable is just
-PrecipitationCal.</li>
+Precipitation.</li>
 <li>Click on Get Data. This will populate a list of links, which will
 take a minute or two.</li>
 <li>When complete, download the list of links.</li>
@@ -108,12 +108,12 @@ take a minute or two.</li>
 lines shown.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"list_of_links.txt"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] "https://docserver.gesdisc.eosdis.nasa.gov/public/project/GPM/IMERG_ATBD_V06.pdf"                                                                                                                                       </span></span>
-<span><span class="co">#&gt; [2] "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/doc/README.GPM.pdf"                                                                                                                                                   </span></span>
-<span><span class="co">#&gt; [3] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.06/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V06.nc4.nc4?precipitationCal[0:0][1715:1775][1452:1495],time,lon[1715:1775],lat[1452:1495]"</span></span>
-<span><span class="co">#&gt; [4] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.06/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V06.nc4.nc4?precipitationCal[0:0][1715:1775][1452:1495],time,lon[1715:1775],lat[1452:1495]"</span></span>
-<span><span class="co">#&gt; [5] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.06/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V06.nc4.nc4?precipitationCal[0:0][1715:1775][1452:1495],time,lon[1715:1775],lat[1452:1495]"</span></span>
-<span><span class="co">#&gt; [6] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.06/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V06.nc4.nc4?precipitationCal[0:0][1715:1775][1452:1495],time,lon[1715:1775],lat[1452:1495]"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "https://arthurhou.pps.eosdis.nasa.gov/Documents/IMERG_V07_ATBD_final.pdf"                                                                                                                                            </span></span>
+<span><span class="co">#&gt; [2] "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/doc/README.GPM.pdf"                                                                                                                                                 </span></span>
+<span><span class="co">#&gt; [3] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"</span></span>
+<span><span class="co">#&gt; [4] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"</span></span>
+<span><span class="co">#&gt; [5] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"</span></span>
+<span><span class="co">#&gt; [6] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="download-and-storing-files-using-r">Download and Storing Files using <code>R</code><a class="anchor" aria-label="anchor" href="#download-and-storing-files-using-r"></a>
@@ -137,83 +137,12 @@ same to create a list of output files.</p>
 <span><span class="co"># use a quick regular expression to create list of outputs</span></span>
 <span><span class="va">nc_files_to_create</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html" class="external-link">str_extract</a></span><span class="op">(</span></span>
 <span>  <span class="va">nc_urls</span>,</span>
-<span>  <span class="st">"3B-DAY-L.MS.MRG.3IMERG.[0-9]{8}-S000000-E235959.V06.nc4"</span></span>
+<span>  <span class="st">"3B-DAY-L.MS.MRG.3IMERG.[0-9]{8}-S000000-E235959.V07B.nc4"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we can set the file paths for the <code>.netrc</code> and
 <code>.urs_cookies</code> files and use the <code><a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link">walk2()</a></code>
 function to download each file.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># file paths</span></span>
-<span><span class="va">netrc_path</span> <span class="op">&lt;-</span> <span class="st">".netrc"</span></span>
-<span><span class="va">cookie_path</span> <span class="op">&lt;-</span> <span class="st">".urs_cookies"</span></span>
-<span></span>
-<span><span class="co"># create config for GET</span></span>
-<span><span class="fu"><a href="https://httr.r-lib.org/reference/set_config.html" class="external-link">set_config</a></span><span class="op">(</span><span class="fu"><a href="https://httr.r-lib.org/reference/config.html" class="external-link">config</a></span><span class="op">(</span>followlocation <span class="op">=</span> <span class="fl">1</span>, netrc <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                    netrc_file <span class="op">=</span> <span class="va">netrc_path</span>,</span>
-<span>                    cookie <span class="op">=</span> <span class="va">cookie_path</span>,</span>
-<span>                    cookiefile <span class="op">=</span> <span class="va">cookie_path</span>,</span>
-<span>                    cookiejar <span class="op">=</span> <span class="va">cookie_path</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># progress through the files and download each file</span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link">walk2</a></span><span class="op">(</span><span class="va">nc_urls</span>, <span class="va">nc_files_to_create</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span><span class="op">(</span>url <span class="op">=</span> <span class="va">x</span>, <span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_disk</a></span><span class="op">(</span><span class="va">y</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>We now have a month’s worth of files to process</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">".nc4"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt;  [2] "3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt;  [3] "3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt;  [4] "3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt;  [5] "3B-DAY-L.MS.MRG.3IMERG.20200605-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt;  [6] "3B-DAY-L.MS.MRG.3IMERG.20200606-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt;  [7] "3B-DAY-L.MS.MRG.3IMERG.20200607-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt;  [8] "3B-DAY-L.MS.MRG.3IMERG.20200608-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt;  [9] "3B-DAY-L.MS.MRG.3IMERG.20200609-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [10] "3B-DAY-L.MS.MRG.3IMERG.20200610-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [11] "3B-DAY-L.MS.MRG.3IMERG.20200611-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [12] "3B-DAY-L.MS.MRG.3IMERG.20200612-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [13] "3B-DAY-L.MS.MRG.3IMERG.20200613-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [14] "3B-DAY-L.MS.MRG.3IMERG.20200614-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [15] "3B-DAY-L.MS.MRG.3IMERG.20200615-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [16] "3B-DAY-L.MS.MRG.3IMERG.20200616-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [17] "3B-DAY-L.MS.MRG.3IMERG.20200617-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [18] "3B-DAY-L.MS.MRG.3IMERG.20200618-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [19] "3B-DAY-L.MS.MRG.3IMERG.20200619-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [20] "3B-DAY-L.MS.MRG.3IMERG.20200620-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [21] "3B-DAY-L.MS.MRG.3IMERG.20200621-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [22] "3B-DAY-L.MS.MRG.3IMERG.20200622-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [23] "3B-DAY-L.MS.MRG.3IMERG.20200623-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [24] "3B-DAY-L.MS.MRG.3IMERG.20200624-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [25] "3B-DAY-L.MS.MRG.3IMERG.20200625-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [26] "3B-DAY-L.MS.MRG.3IMERG.20200626-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [27] "3B-DAY-L.MS.MRG.3IMERG.20200627-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [28] "3B-DAY-L.MS.MRG.3IMERG.20200628-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [29] "3B-DAY-L.MS.MRG.3IMERG.20200629-S000000-E235959.V06.nc4"</span></span>
-<span><span class="co">#&gt; [30] "3B-DAY-L.MS.MRG.3IMERG.20200630-S000000-E235959.V06.nc4"</span></span></code></pre></div>
-<p>To look at how to process these files please see the
-<code><a href="../articles/satpoint.html">vignette("satpoint", package = "satpoint")</a></code> vignette.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="other-r-packages-that-can-help">Other <code>R</code> packages that can help<a class="anchor" aria-label="anchor" href="#other-r-packages-that-can-help"></a>
-</h2>
-<p>In the above example we collected data from <a href="https://urs.earthdata.nasa.gov/" class="external-link">https://urs.earthdata.nasa.gov/</a>
-but there are several other data repositories that you might want to
-make use of. Below we have put together a non-exhaustive list of data
-repositories and the <code>R</code> packages that you can use to collect
-data. In each case, data can be stored in netCDF format on your local
-machine - after which you will be able to process it as detailed in the
-<code><a href="../articles/satpoint.html">vignette("satpoint", package = "satpoint")</a></code> vignette.</p>
-<ul>
-<li><p>The <a href="https://github.com/pepijn-devries/CopernicusMarine" class="external-link">CopernicusMarine</a>
-<code>R</code> package can access the <a href="https://data.marine.copernicus.eu/products" class="external-link">Copernicus Marine Data
-Store</a></p></li>
-<li><p>The <a href="https://bluegreen-labs.github.io/ecmwfr/" class="external-link">ecmwfr</a>
-<code>R</code> package allows users to access both the <a href="https://data.marine.copernicus.eu/products" class="external-link">Copernicus Marine Data
-Store</a> and the <a href="https://confluence.ecmwf.int/display/WEBAPI/ECMWF+Web+API+Home" class="external-link">ECMWF
-Web API</a>.</p></li>
-</ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -222,7 +151,7 @@ Web API</a>.</p></li>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Andrew Duncan, DECIDE.</p>
+  <p>Developed by Andrew Duncan, Annette Boerlage, This work has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No. 101000494 (DECIDE), the Sustainable Aquaculture Innovation Centre (SAIC) under grant reference No. SL_2021_06, and the the Biotechnology and Biological Sciences Research Council (BBSRC) grant reference No. BB/Z515231/1..</p>
 </div>
 
 <div class="pkgdown-footer-right">

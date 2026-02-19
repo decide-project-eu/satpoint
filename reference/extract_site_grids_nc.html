@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">satpoint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,9 +54,12 @@
 <span>  id <span class="op">=</span> <span class="st">"site"</span>,</span>
 <span>  nc_var_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dates_to_extract <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time_present <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  time_var_name <span class="op">=</span> <span class="st">"time"</span>,</span>
+<span>  time_value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  grid_name_x <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  grid_name_y <span class="op">=</span> <span class="st">""</span></span>
+<span>  grid_name_y <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  site_message <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -116,9 +119,19 @@ this from the netCDF file itself.</p></dd>
 provided, all available values will be returned.</p></dd>
 
 
+<dt id="arg-time-present">time_present<a class="anchor" aria-label="anchor" href="#arg-time-present"></a></dt>
+<dd><p>Boolean value that indicates whether a time, or similar
+value is present in the netCDF file.</p></dd>
+
+
 <dt id="arg-time-var-name">time_var_name<a class="anchor" aria-label="anchor" href="#arg-time-var-name"></a></dt>
 <dd><p>Name of time/date variable to extract from the netCDF file.
 Defaults to "time" as that is by far the most common variable name used.</p></dd>
+
+
+<dt id="arg-time-value">time_value<a class="anchor" aria-label="anchor" href="#arg-time-value"></a></dt>
+<dd><p>If there is no date/time value present in the netCDF file, a user
+can provide the date(s) or time(s) for this netCDF file.</p></dd>
 
 
 <dt id="arg-grid-name-x">grid_name_x<a class="anchor" aria-label="anchor" href="#arg-grid-name-x"></a></dt>
@@ -131,6 +144,11 @@ file itself.</p></dd>
 <dd><p>Name of the geographical y coordinate to be extracted.
 If not specified, an attempt will be made to establish this from the netCDF
 file itself.</p></dd>
+
+
+<dt id="arg-site-message">site_message<a class="anchor" aria-label="anchor" href="#arg-site-message"></a></dt>
+<dd><p>Boolean variable to indicate whether to print the messages
+about which site is being processed.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -156,7 +174,7 @@ file itself.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Andrew Duncan, DECIDE.</p>
+  <p>Developed by Andrew Duncan, Annette Boerlage, This work has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No. 101000494 (DECIDE), the Sustainable Aquaculture Innovation Centre (SAIC) under grant reference No. SL_2021_06, and the the Biotechnology and Biological Sciences Research Council (BBSRC) grant reference No. BB/Z515231/1..</p>
 </div>
 
 <div class="pkgdown-footer-right">

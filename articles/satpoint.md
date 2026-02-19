@@ -18,12 +18,12 @@ We will use the files downloaded there for this example.
 ``` r
 nc_files <- list.files(pattern = ".nc4")
 head(nc_files)
-#> [1] "3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V06.nc4"
-#> [2] "3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V06.nc4"
-#> [3] "3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V06.nc4"
-#> [4] "3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V06.nc4"
-#> [5] "3B-DAY-L.MS.MRG.3IMERG.20200605-S000000-E235959.V06.nc4"
-#> [6] "3B-DAY-L.MS.MRG.3IMERG.20200606-S000000-E235959.V06.nc4"
+#> [1] "3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4"
+#> [2] "3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V07B.nc4"
+#> [3] "3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V07B.nc4"
+#> [4] "3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V07B.nc4"
+#> [5] "3B-DAY-L.MS.MRG.3IMERG.20200605-S000000-E235959.V07B.nc4"
+#> [6] "3B-DAY-L.MS.MRG.3IMERG.20200606-S000000-E235959.V07B.nc4"
 ```
 
 ## The Process
@@ -75,20 +75,20 @@ buffers
 #> Bounding box:  xmin: -8.218254 ymin: 56.71742 xmax: -3.076761 ymax: 58.36968
 #> Geodetic CRS:  WGS 84
 #> # A tibble: 12 × 2
-#>    site                                                                            geometry
-#>    <chr>                                                                      <POLYGON [°]>
-#>  1 A_10  ((-5.891903 57.52217, -5.889911 57.52227, -5.889591 57.52086, -5.887599 57.52095,…
-#>  2 B_10  ((-6.72602 57.23765, -6.725663 57.23627, -6.724667 57.23632, -6.724486 57.23562, …
-#>  3 C_10  ((-7.840913 56.81297, -7.836937 56.81323, -7.832962 56.81348, -7.830974 56.8136, …
-#>  4 D_10  ((-3.585398 58.16313, -3.585212 58.1618, -3.584815 58.15896, -3.58333 58.159, -3.…
-#>  5 A_15  ((-5.655942 57.51381, -5.656095 57.51452, -5.653116 57.51465, -5.649145 57.51483,…
-#>  6 B_15  ((-6.75816 57.19041, -6.757478 57.18778, -6.7535 57.188, -6.752773 57.1852, -6.74…
-#>  7 C_15  ((-8.071833 56.81163, -8.071189 56.80955, -8.069197 56.80967, -8.068768 56.80829,…
-#>  8 D_15  ((-3.673967 58.16355, -3.673865 58.16284, -3.672874 58.16287, -3.672366 58.15932,…
-#>  9 A_20  ((-5.545368 57.51908, -5.545443 57.51943, -5.541972 57.51958, -5.542574 57.5224, …
-#> 10 B_20  ((-6.612155 57.47221, -6.612513 57.47361, -6.616525 57.4734, -6.620537 57.47319, …
-#> 11 C_20  ((-8.182937 56.82204, -8.182502 56.82065, -8.180506 56.82079, -8.179201 56.81663,…
-#> 12 D_20  ((-3.218432 58.33415, -3.22215 58.33405, -3.222172 58.33423, -3.22242 58.33423, -…
+#>    site                                                                      geometry
+#>    <chr>                                                                <POLYGON [°]>
+#>  1 A_10  ((-5.891903 57.52217, -5.889911 57.52227, -5.889591 57.52086, -5.887599 57.…
+#>  2 B_10  ((-6.72602 57.23765, -6.725663 57.23627, -6.724667 57.23632, -6.724486 57.2…
+#>  3 C_10  ((-7.840913 56.81297, -7.836937 56.81323, -7.832962 56.81348, -7.830974 56.…
+#>  4 D_10  ((-3.585398 58.16313, -3.585212 58.1618, -3.584815 58.15896, -3.58333 58.15…
+#>  5 A_15  ((-5.655942 57.51381, -5.656095 57.51452, -5.653116 57.51465, -5.649145 57.…
+#>  6 B_15  ((-6.75816 57.19041, -6.757478 57.18778, -6.7535 57.188, -6.752773 57.1852,…
+#>  7 C_15  ((-8.071833 56.81163, -8.071189 56.80955, -8.069197 56.80967, -8.068768 56.…
+#>  8 D_15  ((-3.673967 58.16355, -3.673865 58.16284, -3.672874 58.16287, -3.672366 58.…
+#>  9 A_20  ((-5.545368 57.51908, -5.545443 57.51943, -5.541972 57.51958, -5.542574 57.…
+#> 10 B_20  ((-6.612155 57.47221, -6.612513 57.47361, -6.616525 57.4734, -6.620537 57.4…
+#> 11 C_20  ((-8.182937 56.82204, -8.182502 56.82065, -8.180506 56.82079, -8.179201 56.…
+#> 12 D_20  ((-3.218432 58.33415, -3.22215 58.33405, -3.222172 58.33423, -3.22242 58.33…
 ```
 
 As above, we can plot these buffers to demonstrate what has been
@@ -113,34 +113,8 @@ progress.
 
 ``` r
 extract_site_grids_nc(nc_file = nc_files[1], sites = buffers, nc_crs = 4326)
-#> Extracting the coordinate names directly from the file
-#> Variable extracted from file is precipitationCal
-#> Processing site A_10
-#> Processing site A_15
-#> Processing site A_20
-#> Processing site B_10
-#> Processing site B_15
-#> Processing site B_20
-#> Processing site C_10
-#> Processing site C_15
-#> Processing site C_20
-#> Processing site D_10
-#> Processing site D_15
-#> Processing site D_20
-#> # A tibble: 138 × 3
-#>    site  precipitationCal datetime           
-#>    <chr>            <dbl> <dttm>             
-#>  1 A_10            0      2020-06-01 00:00:00
-#>  2 A_10            0      2020-06-01 00:00:00
-#>  3 A_10            0      2020-06-01 00:00:00
-#>  4 A_10            0      2020-06-01 00:00:00
-#>  5 A_10            0      2020-06-01 00:00:00
-#>  6 A_10            0      2020-06-01 00:00:00
-#>  7 A_15            0.0136 2020-06-01 00:00:00
-#>  8 A_15            0      2020-06-01 00:00:00
-#>  9 A_15            0      2020-06-01 00:00:00
-#> 10 A_15            0      2020-06-01 00:00:00
-#> # ℹ 128 more rows
+#> Error in R_nc4_open: NetCDF: Unknown file format
+#> Error in ncdf4::nc_open(nc_file): Error in nc_open trying to open file 3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4 (return_on_error= FALSE )
 ```
 
 As you can see, we must provide an netCDF file to process, the buffers
@@ -170,21 +144,26 @@ progress through all the input files and bind the results together.
 precip <- map(nc_files, .f = extract_site_grids_nc,
               sites = buffers, nc_crs = 4326) %>%
   list_rbind()
+#> Error in R_nc4_open: NetCDF: Unknown file format
+#> Error in `map()`:
+#> ℹ In index: 1.
+#> Caused by error in `ncdf4::nc_open()`:
+#> ! Error in nc_open trying to open file 3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4 (return_on_error= FALSE )
 precip
-#> # A tibble: 4,140 × 3
-#>    site  precipitationCal datetime           
-#>    <chr>            <dbl> <dttm>             
-#>  1 A_10            0      2020-06-01 00:00:00
-#>  2 A_10            0      2020-06-01 00:00:00
-#>  3 A_10            0      2020-06-01 00:00:00
-#>  4 A_10            0      2020-06-01 00:00:00
-#>  5 A_10            0      2020-06-01 00:00:00
-#>  6 A_10            0      2020-06-01 00:00:00
-#>  7 A_15            0.0136 2020-06-01 00:00:00
-#>  8 A_15            0      2020-06-01 00:00:00
-#>  9 A_15            0      2020-06-01 00:00:00
-#> 10 A_15            0      2020-06-01 00:00:00
-#> # ℹ 4,130 more rows
+#> # A tibble: 3,120 × 3
+#>    site  precipitation datetime           
+#>    <chr>         <dbl> <dttm>             
+#>  1 A_10         0.125  2020-06-01 00:00:00
+#>  2 A_10         0.415  2020-06-01 00:00:00
+#>  3 A_10         0.440  2020-06-01 00:00:00
+#>  4 A_10         0.0600 2020-06-01 00:00:00
+#>  5 A_10         0      2020-06-01 00:00:00
+#>  6 A_10         0      2020-06-01 00:00:00
+#>  7 A_15         0.205  2020-06-01 00:00:00
+#>  8 A_15         0.125  2020-06-01 00:00:00
+#>  9 A_15         0.415  2020-06-01 00:00:00
+#> 10 A_15         0.440  2020-06-01 00:00:00
+#> # ℹ 3,110 more rows
 ```
 
 We can then
@@ -195,13 +174,14 @@ the results and produce a quick plot of them.
 sum_precip <- precip %>%
   separate_wider_delim(site, names = c("site", "buffer"), delim = "_") %>%
   group_by(site, buffer, datetime) %>%
-  summarise(precipitationCal = mean(precipitationCal, na.rm = TRUE),
+  summarise(precipitation = mean(precipitation, na.rm = TRUE),
             .groups = "drop")
 
-ggplot(sum_precip, aes(x = datetime, y = precipitationCal)) +
+ggplot(sum_precip, aes(x = datetime, y = precipitation)) +
   geom_line(aes(col = buffer)) +
   geom_point() +
-  facet_wrap(vars(site), ncol = 2)
+  facet_grid(buffer ~ site) +
+  labs(x = "Date", y = "Mean Precipitation", colour = "Buffer")
 ```
 
 ![plot of chunk final_plot](final_plot-1.png)
@@ -264,8 +244,9 @@ will try its best to figure out which variable to extract. However, if
 this can be specified via the
 
 ``` r
+# not run
 extract_site_grids_nc(nc_file = nc_files[1], site_buffers = buffers, nc_crs = 4326,
-                      nc_var_name = "precipitationCal")
+                      nc_var_name = "precipitation")
 #> Error in extract_site_grids_nc(nc_file = nc_files[1], site_buffers = buffers, : unused argument (site_buffers = buffers)
 ```
 
@@ -276,5 +257,5 @@ extracted.
 ``` r
 # not run
 extract_site_grids_nc(nc_file = nc_files[1], site_buffers = buffers, nc_crs = 4326,
-                      nc_var_name = "precipitationCal", depth_var = "Depth")
+                      nc_var_name = "precipitation", depth_var = "Depth")
 ```

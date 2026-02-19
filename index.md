@@ -40,6 +40,14 @@ of data we have put together the
 to demonstrate how to download files from the [NASA
 EARTHDATA](https://urs.earthdata.nasa.gov/) data repository.
 
+## Funding
+
+This work has received funding from the European Union’s Horizon 2020
+research and innovation programme under grant agreement No. 101000494
+(DECIDE), the Sustainable Aquaculture Innovation Centre (SAIC) under
+grant reference No. SL_2021_06, and the the Biotechnology and Biological
+Sciences Research Council (BBSRC) grant reference No. BB/Z515231/1.
+
 ## Final Words
 
 This is a brand new package and is very much still in development. If

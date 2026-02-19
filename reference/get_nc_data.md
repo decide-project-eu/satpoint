@@ -12,6 +12,7 @@ get_nc_data(
   nc_obj,
   depth_vals,
   nc_var,
+  time_var,
   nc_times,
   site,
   swap_ind = FALSE
