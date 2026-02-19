@@ -17,8 +17,8 @@
 #' @return Tibble of all variable values, times and depths extracted from the
 #'   provided netCDF file.
 #'
-get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, nc_times, site,
-                        swap_ind = FALSE) {
+get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, time_var,
+                        nc_times, site, swap_ind = FALSE) {
 
   # swap indices if needed
   if (swap_ind) {
@@ -30,7 +30,7 @@ get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, nc_times, site
   }
 
 
-  # deal with
+  # deal with different dimensions
   if (!is.null(depth_vals) && length(nc_times) > 1) {
     nc_start <- c(first_ind , second_ind, 1, 1)
     nc_count <- c(1, 1, -1, -1)
@@ -42,8 +42,22 @@ get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, nc_times, site
   }
 
   nc_data_full <- lapply(nc_var, function(this_var) {
+
+    # check whether it is 2d or 3d, most are 3d but the odd netCDF file is 2d
+    nc_dim <- nc_obj$var[[this_var]]$ndim
+
+    # if it is 2d, shorten the vectors
+    if (nc_dim == 2) {
+      nc_start_get <- nc_start[1:2]
+      nc_count_get <- nc_count[1:2]
+    } else {
+      nc_start_get <- nc_start
+      nc_count_get <- nc_count
+    }
+
     # collect the data from the nc file and rearrange
-    nc_data <- ncdf4::ncvar_get(nc_obj, this_var, start = nc_start, count = nc_count) |>
+    nc_data <- ncdf4::ncvar_get(nc_obj, this_var, start = nc_start_get,
+                                count = nc_count_get) |>
       as.list() |>
       unlist() |>
       as.data.frame()

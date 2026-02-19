@@ -15,9 +15,12 @@ extract_site_grids_nc(
   id = "site",
   nc_var_name = NULL,
   dates_to_extract = NULL,
+  time_present = TRUE,
   time_var_name = "time",
+  time_value = NULL,
   grid_name_x = "",
-  grid_name_y = ""
+  grid_name_y = "",
+  site_message = TRUE
 )
 }
 \arguments{
@@ -53,8 +56,14 @@ this from the netCDF file itself.}
 \item{dates_to_extract}{Vector of dates to extract the variable for. If not
 provided, all available values will be returned.}
 
+\item{time_present}{Boolean value that indicates whether a time, or similar
+value is present in the netCDF file.}
+
 \item{time_var_name}{Name of time/date variable to extract from the netCDF file.
 Defaults to "time" as that is by far the most common variable name used.}
+
+\item{time_value}{If there is no date/time value present in the netCDF file, a user
+can provide the date(s) or time(s) for this netCDF file.}
 
 \item{grid_name_x}{Name of the geographical x coordinate to be extracted.
 If not specified, an attempt will be made to establish this from the netCDF
@@ -63,6 +72,9 @@ file itself.}
 \item{grid_name_y}{Name of the geographical y coordinate to be extracted.
 If not specified, an attempt will be made to establish this from the netCDF
 file itself.}
+
+\item{site_message}{Boolean variable to indicate whether to print the messages
+about which site is being processed.}
 }
 \value{
 A tibble of each location id, with the corresponding variable values

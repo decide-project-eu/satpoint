@@ -22,14 +22,20 @@
 #'   this from the netCDF file itself.
 #' @param dates_to_extract Vector of dates to extract the variable for. If not
 #'   provided, all available values will be returned.
+#' @param time_present Boolean value that indicates whether a time, or similar
+#'   value is present in the netCDF file.
 #' @param time_var_name Name of time/date variable to extract from the netCDF file.
 #'   Defaults to "time" as that is by far the most common variable name used.
+#' @param time_value If there is no date/time value present in the netCDF file, a user
+#'   can provide the date(s) or time(s) for this netCDF file.
 #' @param grid_name_x Name of the geographical x coordinate to be extracted.
 #'   If not specified, an attempt will be made to establish this from the netCDF
 #'   file itself.
 #' @param grid_name_y Name of the geographical y coordinate to be extracted.
 #'   If not specified, an attempt will be made to establish this from the netCDF
 #'   file itself.
+#' @param site_message Boolean variable to indicate whether to print the messages
+#'   about which site is being processed.
 #'
 #' @return A tibble of each location id, with the corresponding variable values
 #'   depths and dates available.
@@ -51,12 +57,23 @@ extract_site_grids_nc <- function(nc_file, sites,
                                   depth_var = "depth", depths_to_extract = NULL,
                                   id = "site",
                                   nc_var_name = NULL, dates_to_extract = NULL,
+                                  time_present = TRUE,
                                   time_var_name = "time",
-                                  grid_name_x = "", grid_name_y = "") {
+                                  time_value = NULL,
+                                  grid_name_x = "", grid_name_y = "",
+                                  site_message = TRUE) {
 
   nc_obj <- ncdf4::nc_open(nc_file)
 
-  all_times <- extract_dates(nc_obj, time_var_name)
+  if (time_present) {
+    all_times <- extract_dates(nc_obj, time_var_name)
+  } else {
+    if (is.null(time_value)) {
+      stop("If dates/times are not present in the netCDF file, please provide
+           a date/time value for this file.")
+    }
+    all_times <- time_value
+  }
 
   # create buffer box if required
   # (will result in much quicker extraction when netCDF files are very detailed)
@@ -126,13 +143,16 @@ extract_site_grids_nc <- function(nc_file, sites,
   all_nc_sites <- sites_df |>
     split(sites_df[[id]]) |>
     lapply(function(df) {
-      message(paste("Processing", id, unique(df[[id]])))
+      if (site_message) {
+        message(paste("Processing", id, unique(df[[id]])))
+      }
       results <- mapply(get_nc_data,
                         df$ind.x, df$ind.y,
                         MoreArgs = list(
                           nc_obj = nc_obj,
                           depth_vals = depth_values,
                           nc_var = var_name,
+                          time_var = time_var_name,
                           nc_times = all_times,
                           site = unique(df[[id]]),
                           swap_ind = swap_flag),
