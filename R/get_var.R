@@ -17,7 +17,7 @@
 #' @return Tibble of all variable values, times and depths extracted from the
 #'   provided netCDF file.
 #'
-get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var, time_var,
+get_nc_data <- function(ind.x, ind.y, nc_obj, depth_vals, nc_var,
                         nc_times, site, swap_ind = FALSE) {
 
   # swap indices if needed

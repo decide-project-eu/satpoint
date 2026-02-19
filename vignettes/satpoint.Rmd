@@ -104,8 +104,31 @@ Now we have the buffers we can use the main package function `extract_site_grids
 
 ``` r
 extract_site_grids_nc(nc_file = nc_files[1], sites = buffers, nc_crs = 4326)
-#> Error in R_nc4_open: NetCDF: Unknown file format
-#> Error in ncdf4::nc_open(nc_file): Error in nc_open trying to open file 3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4 (return_on_error= FALSE )
+#> Extracting the coordinate names directly from the file
+#> Variable extracted from file is precipitation
+#> Processing site A_10
+#> Processing site A_15
+#> Processing site A_20
+#> Processing site B_10
+#> Processing site B_15
+#> Processing site B_20
+#> Processing site C_10
+#> Processing site C_15
+#> Processing site C_20
+#> # A tibble: 104 × 3
+#>    site  precipitation datetime           
+#>    <chr>         <dbl> <dttm>             
+#>  1 A_10         0.125  2020-06-01 00:00:00
+#>  2 A_10         0.415  2020-06-01 00:00:00
+#>  3 A_10         0.440  2020-06-01 00:00:00
+#>  4 A_10         0.0600 2020-06-01 00:00:00
+#>  5 A_10         0      2020-06-01 00:00:00
+#>  6 A_10         0      2020-06-01 00:00:00
+#>  7 A_15         0.205  2020-06-01 00:00:00
+#>  8 A_15         0.125  2020-06-01 00:00:00
+#>  9 A_15         0.415  2020-06-01 00:00:00
+#> 10 A_15         0.440  2020-06-01 00:00:00
+#> # ℹ 94 more rows
 ```
 
 As you can see, we must provide an netCDF file to process, the buffers and the coordinate referencing system (CRS) that the netCDF file is making use of. The `extract_site_grids_nc()` function completes the following steps:
@@ -127,11 +150,6 @@ To demonstrate processing multiple files, we'll use the `map()` function to prog
 precip <- map(nc_files, .f = extract_site_grids_nc,
               sites = buffers, nc_crs = 4326) %>%
   list_rbind()
-#> Error in R_nc4_open: NetCDF: Unknown file format
-#> Error in `map()`:
-#> ℹ In index: 1.
-#> Caused by error in `ncdf4::nc_open()`:
-#> ! Error in nc_open trying to open file 3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4 (return_on_error= FALSE )
 precip
 #> # A tibble: 3,120 × 3
 #>    site  precipitation datetime           
