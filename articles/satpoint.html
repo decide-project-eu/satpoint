@@ -168,8 +168,31 @@ We’ll do this for one file first, to demonstrate the inputs and the
 messages provided to help track the progress.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/extract_site_grids_nc.html">extract_site_grids_nc</a></span><span class="op">(</span>nc_file <span class="op">=</span> <span class="va">nc_files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, sites <span class="op">=</span> <span class="va">buffers</span>, nc_crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in R_nc4_open: NetCDF: Unknown file format</span></span>
-<span><span class="co">#&gt; Error in ncdf4::nc_open(nc_file): Error in nc_open trying to open file 3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4 (return_on_error= FALSE )</span></span></code></pre></div>
+<span><span class="co">#&gt; Extracting the coordinate names directly from the file</span></span>
+<span><span class="co">#&gt; Variable extracted from file is precipitation</span></span>
+<span><span class="co">#&gt; Processing site A_10</span></span>
+<span><span class="co">#&gt; Processing site A_15</span></span>
+<span><span class="co">#&gt; Processing site A_20</span></span>
+<span><span class="co">#&gt; Processing site B_10</span></span>
+<span><span class="co">#&gt; Processing site B_15</span></span>
+<span><span class="co">#&gt; Processing site B_20</span></span>
+<span><span class="co">#&gt; Processing site C_10</span></span>
+<span><span class="co">#&gt; Processing site C_15</span></span>
+<span><span class="co">#&gt; Processing site C_20</span></span>
+<span><span class="co">#&gt; # A tibble: 104 × 3</span></span>
+<span><span class="co">#&gt;    site  precipitation datetime           </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;dbl&gt; &lt;dttm&gt;             </span></span>
+<span><span class="co">#&gt;  1 A_10         0.125  2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt;  2 A_10         0.415  2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt;  3 A_10         0.440  2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt;  4 A_10         0.0600 2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt;  5 A_10         0      2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt;  6 A_10         0      2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt;  7 A_15         0.205  2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt;  8 A_15         0.125  2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt;  9 A_15         0.415  2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt; 10 A_15         0.440  2020-06-01 00:00:00</span></span>
+<span><span class="co">#&gt; # ℹ 94 more rows</span></span></code></pre></div>
 <p>As you can see, we must provide an netCDF file to process, the
 buffers and the coordinate referencing system (CRS) that the netCDF file
 is making use of. The <code><a href="../reference/extract_site_grids_nc.html">extract_site_grids_nc()</a></code> function
@@ -197,11 +220,6 @@ bind the results together.</p>
 <span><span class="va">precip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">nc_files</span>, .f <span class="op">=</span> <span class="va">extract_site_grids_nc</span>,</span>
 <span>              sites <span class="op">=</span> <span class="va">buffers</span>, nc_crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in R_nc4_open: NetCDF: Unknown file format</span></span>
-<span><span class="co">#&gt; Error in `map()`:</span></span>
-<span><span class="co">#&gt; ℹ In index: 1.</span></span>
-<span><span class="co">#&gt; Caused by error in `ncdf4::nc_open()`:</span></span>
-<span><span class="co">#&gt; ! Error in nc_open trying to open file 3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4 (return_on_error= FALSE )</span></span>
 <span><span class="va">precip</span></span>
 <span><span class="co">#&gt; # A tibble: 3,120 × 3</span></span>
 <span><span class="co">#&gt;    site  precipitation datetime           </span></span>

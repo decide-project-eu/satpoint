@@ -38,19 +38,26 @@ we can use
 
 ``` r
 nc_obj <- ncdf4::nc_open(fvcom_file)
-#> Error in R_nc4_open: NetCDF: file not found
-#> Error in ncdf4::nc_open(fvcom_file): Error in nc_open trying to open file https://thredds.sams.ac.uk/thredds/dodsC/scoats-westcoms2/Archive/netcdf_2020/westcoms2_20200101_0001.nc (return_on_error= FALSE )
-collect_variables(nc_obj, nodes = TRUE)
-#> Error: object 'nc_obj' not found
 ```
+
+    ## Error in R_nc4_open: NetCDF: file not found
+
+    ## Error in ncdf4::nc_open(fvcom_file): Error in nc_open trying to open file https://thredds.sams.ac.uk/thredds/dodsC/scoats-westcoms2/Archive/netcdf_2020/westcoms2_20200101_0001.nc (return_on_error= FALSE )
+
+``` r
+collect_variables(nc_obj, nodes = TRUE)
+```
+
+    ## Error: object 'nc_obj' not found
 
 To extract the variable values themselves, we can choose one of the
 variables above that are recorded at the `node` level and run
 
 ``` r
 extract_nodes_fvcom(nc_obj, nc_var_name = "precip")
-#> Error: object 'nc_obj' not found
 ```
+
+    ## Error: object 'nc_obj' not found
 
 ## Summarising the values across buffers
 
@@ -66,14 +73,15 @@ sites <- tibble(
   latitude = c(57.607846, 57.291280, 56.900022, 58.187849)
 )
 sites
-#> # A tibble: 4 × 3
-#>   site  longitude latitude
-#>   <chr>     <dbl>    <dbl>
-#> 1 A         -5.84     57.6
-#> 2 B         -6.59     57.3
-#> 3 C         -7.89     56.9
-#> 4 D         -3.42     58.2
 ```
+
+    ## # A tibble: 4 × 3
+    ##   site  longitude latitude
+    ##   <chr>     <dbl>    <dbl>
+    ## 1 A         -5.84     57.6
+    ## 2 B         -6.59     57.3
+    ## 3 C         -7.89     56.9
+    ## 4 D         -3.42     58.2
 
 We can create buffers but as the `fvcom` file is stored at a smaller
 scale, we want the buffers to be smaller.
@@ -82,19 +90,20 @@ scale, we want the buffers to be smaller.
 buffers <- site_buffers(sites, x_coord = "longitude", y_coord = "latitude", 
                         crs = 4326, buffers = c(2))
 buffers
-#> Simple feature collection with 4 features and 1 field
-#> Geometry type: POLYGON
-#> Dimension:     XY
-#> Bounding box:  xmin: -7.918481 ymin: 56.88169 xmax: -3.386795 ymax: 58.20619
-#> Geodetic CRS:  WGS 84
-#> # A tibble: 4 × 2
-#>   site                                                                       geometry
-#>   <chr>                                                                 <POLYGON [°]>
-#> 1 A_2   ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 57.59795, -5.865805 57.59…
-#> 2 B_2   ((-6.615266 57.27812, -6.615221 57.27795, -6.614972 57.27796, -6.614927 57.2…
-#> 3 C_2   ((-7.907938 56.88706, -7.907885 56.88689, -7.907636 56.88691, -7.907583 56.8…
-#> 4 D_2   ((-3.446063 58.17525, -3.445816 58.17525, -3.445792 58.17508, -3.445545 58.1…
 ```
+
+    ## Simple feature collection with 4 features and 1 field
+    ## Geometry type: POLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: -7.918481 ymin: 56.88169 xmax: -3.386795 ymax: 58.20619
+    ## Geodetic CRS:  WGS 84
+    ## # A tibble: 4 × 2
+    ##   site                                                                       geometry
+    ##   <chr>                                                                 <POLYGON [°]>
+    ## 1 A_2   ((-5.866424 57.59847, -5.866384 57.5983, -5.866304 57.59795, -5.865805 57.59…
+    ## 2 B_2   ((-6.615266 57.27812, -6.615221 57.27795, -6.614972 57.27796, -6.614927 57.2…
+    ## 3 C_2   ((-7.907938 56.88706, -7.907885 56.88689, -7.907636 56.88691, -7.907583 56.8…
+    ## 4 D_2   ((-3.446063 58.17525, -3.445816 58.17525, -3.445792 58.17508, -3.445545 58.1…
 
 We can now extract the data from our `fvcom` file and average the values
 across the buffers
@@ -102,6 +111,8 @@ across the buffers
 ``` r
 extract_site_grids_fvcom(fvcom_file, sites = buffers, 
                          nc_crs = 4326, nc_var_name = "precip")
-#> Error in R_nc4_open: NetCDF: file not found
-#> Error in ncdf4::nc_open(nc_file): Error in nc_open trying to open file https://thredds.sams.ac.uk/thredds/dodsC/scoats-westcoms2/Archive/netcdf_2020/westcoms2_20200101_0001.nc (return_on_error= FALSE )
 ```
+
+    ## Error in R_nc4_open: NetCDF: file not found
+
+    ## Error in ncdf4::nc_open(nc_file): Error in nc_open trying to open file https://thredds.sams.ac.uk/thredds/dodsC/scoats-westcoms2/Archive/netcdf_2020/westcoms2_20200101_0001.nc (return_on_error= FALSE )

@@ -41,13 +41,14 @@ shown.
 
 ``` r
 readLines("list_of_links.txt")[1:6]
-#> [1] "https://arthurhou.pps.eosdis.nasa.gov/Documents/IMERG_V07_ATBD_final.pdf"                                                                                                                                            
-#> [2] "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/doc/README.GPM.pdf"                                                                                                                                                 
-#> [3] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
-#> [4] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
-#> [5] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
-#> [6] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
 ```
+
+    ## [1] "https://arthurhou.pps.eosdis.nasa.gov/Documents/IMERG_V07_ATBD_final.pdf"                                                                                                                                            
+    ## [2] "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/doc/README.GPM.pdf"                                                                                                                                                 
+    ## [3] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
+    ## [4] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
+    ## [5] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
+    ## [6] "https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3/GPM_3IMERGDL.07/2020/06/3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V07B.nc4.nc4?precipitation[0:0][1717:1759][1450:1491],time,lon[1717:1759],lat[1450:1491]"
 
 ### Download and Storing Files using `R`
 
@@ -83,3 +84,84 @@ Finally, we can set the file paths for the `.netrc` and `.urs_cookies`
 files and use the
 [`walk2()`](https://purrr.tidyverse.org/reference/map2.html) function to
 download each file.
+
+``` r
+# file paths
+netrc_path <- ".netrc"
+cookie_path <- ".urs_cookies"
+
+# create config for GET
+set_config(config(followlocation = 1, netrc = 1,
+                    netrc_file = netrc_path,
+                    cookie = cookie_path,
+                    cookiefile = cookie_path,
+                    cookiejar = cookie_path))
+
+# progress through the files and download each file
+walk2(nc_urls, nc_files_to_create, function(x, y) {
+  GET(url = x, write_disk(y, overwrite = TRUE))
+})
+```
+
+We now have a month’s worth of files to process
+
+``` r
+list.files(pattern = ".nc4")
+```
+
+    ##  [1] "3B-DAY-L.MS.MRG.3IMERG.20200601-S000000-E235959.V07B.nc4"
+    ##  [2] "3B-DAY-L.MS.MRG.3IMERG.20200602-S000000-E235959.V07B.nc4"
+    ##  [3] "3B-DAY-L.MS.MRG.3IMERG.20200603-S000000-E235959.V07B.nc4"
+    ##  [4] "3B-DAY-L.MS.MRG.3IMERG.20200604-S000000-E235959.V07B.nc4"
+    ##  [5] "3B-DAY-L.MS.MRG.3IMERG.20200605-S000000-E235959.V07B.nc4"
+    ##  [6] "3B-DAY-L.MS.MRG.3IMERG.20200606-S000000-E235959.V07B.nc4"
+    ##  [7] "3B-DAY-L.MS.MRG.3IMERG.20200607-S000000-E235959.V07B.nc4"
+    ##  [8] "3B-DAY-L.MS.MRG.3IMERG.20200608-S000000-E235959.V07B.nc4"
+    ##  [9] "3B-DAY-L.MS.MRG.3IMERG.20200609-S000000-E235959.V07B.nc4"
+    ## [10] "3B-DAY-L.MS.MRG.3IMERG.20200610-S000000-E235959.V07B.nc4"
+    ## [11] "3B-DAY-L.MS.MRG.3IMERG.20200611-S000000-E235959.V07B.nc4"
+    ## [12] "3B-DAY-L.MS.MRG.3IMERG.20200612-S000000-E235959.V07B.nc4"
+    ## [13] "3B-DAY-L.MS.MRG.3IMERG.20200613-S000000-E235959.V07B.nc4"
+    ## [14] "3B-DAY-L.MS.MRG.3IMERG.20200614-S000000-E235959.V07B.nc4"
+    ## [15] "3B-DAY-L.MS.MRG.3IMERG.20200615-S000000-E235959.V07B.nc4"
+    ## [16] "3B-DAY-L.MS.MRG.3IMERG.20200616-S000000-E235959.V07B.nc4"
+    ## [17] "3B-DAY-L.MS.MRG.3IMERG.20200617-S000000-E235959.V07B.nc4"
+    ## [18] "3B-DAY-L.MS.MRG.3IMERG.20200618-S000000-E235959.V07B.nc4"
+    ## [19] "3B-DAY-L.MS.MRG.3IMERG.20200619-S000000-E235959.V07B.nc4"
+    ## [20] "3B-DAY-L.MS.MRG.3IMERG.20200620-S000000-E235959.V07B.nc4"
+    ## [21] "3B-DAY-L.MS.MRG.3IMERG.20200621-S000000-E235959.V07B.nc4"
+    ## [22] "3B-DAY-L.MS.MRG.3IMERG.20200622-S000000-E235959.V07B.nc4"
+    ## [23] "3B-DAY-L.MS.MRG.3IMERG.20200623-S000000-E235959.V07B.nc4"
+    ## [24] "3B-DAY-L.MS.MRG.3IMERG.20200624-S000000-E235959.V07B.nc4"
+    ## [25] "3B-DAY-L.MS.MRG.3IMERG.20200625-S000000-E235959.V07B.nc4"
+    ## [26] "3B-DAY-L.MS.MRG.3IMERG.20200626-S000000-E235959.V07B.nc4"
+    ## [27] "3B-DAY-L.MS.MRG.3IMERG.20200627-S000000-E235959.V07B.nc4"
+    ## [28] "3B-DAY-L.MS.MRG.3IMERG.20200628-S000000-E235959.V07B.nc4"
+    ## [29] "3B-DAY-L.MS.MRG.3IMERG.20200629-S000000-E235959.V07B.nc4"
+    ## [30] "3B-DAY-L.MS.MRG.3IMERG.20200630-S000000-E235959.V07B.nc4"
+
+To look at how to process these files please see the
+[`vignette("satpoint", package = "satpoint")`](https://decide-project-eu.github.io/satpoint/articles/satpoint.md)
+vignette.
+
+## Other `R` packages that can help
+
+In the above example we collected data from
+<https://urs.earthdata.nasa.gov/> but there are several other data
+repositories that you might want to make use of. Below we have put
+together a non-exhaustive list of data repositories and the `R` packages
+that you can use to collect data. In each case, data can be stored in
+netCDF format on your local machine - after which you will be able to
+process it as detailed in the
+[`vignette("satpoint", package = "satpoint")`](https://decide-project-eu.github.io/satpoint/articles/satpoint.md)
+vignette.
+
+- The
+  [CopernicusMarine](https://github.com/pepijn-devries/CopernicusMarine)
+  `R` package can access the [Copernicus Marine Data
+  Store](https://data.marine.copernicus.eu/products)
+
+- The [ecmwfr](https://bluegreen-labs.github.io/ecmwfr/) `R` package
+  allows users to access both the [Copernicus Marine Data
+  Store](https://data.marine.copernicus.eu/products) and the [ECMWF Web
+  API](https://confluence.ecmwf.int/display/WEBAPI/ECMWF+Web+API+Home).
