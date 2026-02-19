@@ -78,8 +78,8 @@ collect_geo_names <- function(nc_obj, name_x, name_y) {
   if (name_x == ""|| name_y == "") {
     message("Extracting the coordinate names directly from the file")
     all_dims <- union(names(nc_obj$dim), names(nc_obj$var))
-    name_x <- all_dims[grepl("lon|x_coord", all_dims)]
-    name_y <- all_dims[grepl("lat|y_coord", all_dims)]
+    name_x <- all_dims[grepl("lon|x_coord", all_dims, ignore.case = TRUE)]
+    name_y <- all_dims[grepl("lat|y_coord", all_dims, ignore.case = TRUE)]
   }
 
   if (length(name_x) > 1 || length(name_y) > 1) {
